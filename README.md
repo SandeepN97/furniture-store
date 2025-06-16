@@ -32,6 +32,7 @@ npm run dev
 
 The checkout page at `/checkout` sends cart contents to the backend to create an order.
 Login using the form at `/login`. View your past orders at `/orders`.
+
 Admins can manage products at `/admin`, including uploading images and editing or deleting items. New products can be added at `/add-product`.
 
 The dev server proxies API requests to the backend.
@@ -56,3 +57,4 @@ docker-compose up --build
 
 The backend will be available on `http://localhost:8080` and the React frontend
 served by Nginx on `http://localhost`.
+

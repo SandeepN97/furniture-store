@@ -4,7 +4,6 @@ import { useCart } from './CartContext';
 
 export default function Cart() {
   const { items, removeItem, getTotalPrice } = useCart();
-
   if (items.length === 0) {
     return (
       <div>
