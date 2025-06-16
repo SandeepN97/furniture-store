@@ -40,7 +40,7 @@ public class Product {
         this.category = category;
     }
 
-    public Product(String name, BigDecimal price, String description, String imageUrl,
+  public Product(String name, BigDecimal price, String description, String imageUrl,
             Category category) {
         this.name = name;
         this.price = price;
@@ -48,7 +48,7 @@ public class Product {
         this.imageUrl = imageUrl;
         this.category = category;
     }
-
+  
     public Long getId() {
         return id;
     }
