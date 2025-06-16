@@ -16,7 +16,6 @@ export default function Cart() {
       alert('Failed to place order');
     }
   };
-
   if (items.length === 0) {
     return (
       <div>
