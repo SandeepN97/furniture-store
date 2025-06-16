@@ -5,9 +5,11 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -38,8 +40,10 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> all() {
-        return repository.findAll();
+    public Page<Product> all(@RequestParam(required = false) Long categoryId,
+                             @RequestParam(required = false) String name,
+                             Pageable pageable) {
+        return repository.search(categoryId, name, pageable);
     }
 
     @GetMapping("/{id}")

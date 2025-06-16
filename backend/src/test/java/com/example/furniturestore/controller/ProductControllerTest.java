@@ -42,13 +42,23 @@ class ProductControllerTest {
         categoryRepository.deleteAll();
         category = categoryRepository.save(new Category("Chairs", "desc"));
         productRepository.save(new Product("Chair", new BigDecimal("20.00"), "Nice chair", null, category));
+        productRepository.save(new Product("Table", new BigDecimal("30.00"), "Nice table", null, category));
     }
 
     @Test
     void getAll_returnsProducts() throws Exception {
         mockMvc.perform(get("/api/products"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].name").value("Chair"));
+            .andExpect(jsonPath("$.content[0].name").value("Chair"))
+            .andExpect(jsonPath("$.totalElements").value(2));
+    }
+
+    @Test
+    void filterByName_returnsSingleProduct() throws Exception {
+        mockMvc.perform(get("/api/products").param("name", "Table"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.content.length()").value(1))
+            .andExpect(jsonPath("$.content[0].name").value("Table"));
     }
 
     @Test

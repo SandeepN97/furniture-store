@@ -9,7 +9,9 @@ export default function AdminPanel() {
   const [form, setForm] = useState({ name: '', price: '', description: '', categoryId: '', imageUrl: '', imageFile: null });
 
   const load = () => {
-    axios.get('/api/products').then(res => setProducts(res.data)).catch(() => {});
+    axios.get('/api/products')
+      .then(res => setProducts(res.data.content || res.data))
+      .catch(() => {});
   };
 
   useEffect(() => {
