@@ -103,7 +103,7 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
-
+  
     public int getStockQuantity() {
         return stockQuantity;
     }
