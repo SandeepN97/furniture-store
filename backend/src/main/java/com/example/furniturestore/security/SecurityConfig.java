@@ -12,15 +12,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import com.example.furniturestore.security.ApiKeyFilter;
 
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
+    private final ApiKeyFilter apiKeyFilter;
 
-    public SecurityConfig(JwtFilter jwtFilter) {
+    public SecurityConfig(JwtFilter jwtFilter, ApiKeyFilter apiKeyFilter) {
         this.jwtFilter = jwtFilter;
+        this.apiKeyFilter = apiKeyFilter;
     }
 
     @Bean
@@ -31,6 +34,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/products", "/api/products/*").permitAll()
                         .requestMatchers("/api/auth/**", "/api/categories", "/uploads/**").permitAll()
                         .anyRequest().authenticated())
+                .addFilterBefore(apiKeyFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

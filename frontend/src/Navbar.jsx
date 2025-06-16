@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from './CartContext';
 import { useAuth, parseJwt } from './AuthContext';
+import { useTheme } from './ThemeContext';
 
 export default function Navbar() {
   const { getItemCount } = useCart();
   const { token, logout } = useAuth();
+  const { toggle, theme } = useTheme();
   const role = token ? parseJwt(token).role : null;
   return (
     <nav className="bg-gray-800 text-white p-4 flex flex-wrap gap-4">
@@ -25,6 +27,9 @@ export default function Navbar() {
       <Link to="/cart" className="hover:underline ml-auto">
         Cart ({getItemCount()})
       </Link>
+      <button onClick={toggle} className="hover:underline">
+        {theme === 'dark' ? 'Light' : 'Dark'} Mode
+      </button>
       {token ? (
         <>
           <Link to="/orders" className="hover:underline">
