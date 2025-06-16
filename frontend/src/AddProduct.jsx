@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useAuth } from './AuthContext';
+import { useAuth, parseJwt } from './AuthContext';
 
 export default function AddProduct() {
-  const { authHeader, role } = useAuth();
+  const { token, authHeader } = useAuth();
+  const role = token ? parseJwt(token).role : null;
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');

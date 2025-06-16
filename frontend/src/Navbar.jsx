@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from './CartContext';
-import { useAuth } from './AuthContext';
+import { useAuth, parseJwt } from './AuthContext';
 
 export default function Navbar() {
   const { getItemCount } = useCart();
-  const { token, role, logout } = useAuth();
-
+  const { token, logout } = useAuth();
+  const role = token ? parseJwt(token).role : null;
   return (
     <nav>
       <Link to="/">Home</Link> |{' '}
