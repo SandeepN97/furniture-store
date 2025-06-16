@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function App() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(setProducts)
+    axios.get('/api/products')
+      .then(res => setProducts(res.data))
       .catch(() => {});
   }, []);
 
@@ -15,7 +15,7 @@ export default function App() {
       <h1>Furniture Store</h1>
       <ul>
         {products.map(p => (
-          <li key={p.id}>{p.name} - ${'{'}p.price{'}'}</li>
+          <li key={p.id}>{p.name} - ${p.price}</li>
         ))}
       </ul>
     </div>
