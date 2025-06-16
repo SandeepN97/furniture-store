@@ -12,7 +12,6 @@ import com.example.furniturestore.model.User;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByUser(User user);
-
     @Query("select sum(o.totalPrice) from Order o")
     BigDecimal sumTotalPrice();
 }

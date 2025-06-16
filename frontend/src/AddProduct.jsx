@@ -15,7 +15,6 @@ export default function AddProduct() {
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({});
   const { t } = useTranslation();
-
   useEffect(() => {
     axios.get('/api/categories').then(res => setCategories(res.data)).catch(() => {});
   }, []);
@@ -30,7 +29,6 @@ export default function AddProduct() {
       return;
     }
     setErrors({});
-
     try {
       let imageUrl = '';
       if (imageFile) {
