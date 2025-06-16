@@ -7,7 +7,6 @@ export default function Navbar() {
   const { getItemCount } = useCart();
   const { token, logout } = useAuth();
   const role = token ? parseJwt(token).role : null;
-
   return (
     <nav className="bg-gray-800 text-white p-4 flex flex-wrap gap-4">
       <Link to="/" className="hover:underline">
