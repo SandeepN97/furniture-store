@@ -19,6 +19,8 @@ public class Product {
 
     private String name;
     private BigDecimal price;
+    private String description;
+    private String imageUrl;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
@@ -35,6 +37,15 @@ public class Product {
     public Product(String name, BigDecimal price, Category category) {
         this.name = name;
         this.price = price;
+        this.category = category;
+    }
+
+    public Product(String name, BigDecimal price, String description, String imageUrl,
+            Category category) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.imageUrl = imageUrl;
         this.category = category;
     }
 
@@ -60,6 +71,22 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Category getCategory() {

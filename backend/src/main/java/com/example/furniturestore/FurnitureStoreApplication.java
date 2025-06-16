@@ -32,15 +32,21 @@ public class FurnitureStoreApplication {
                         .save(new Category("Storage", "Shelves and cabinets"));
 
                 if (productRepository.count() == 0) {
-                    productRepository
-                            .save(new Product("Chair", new BigDecimal("49.99"),
-                                    seating));
-                    productRepository
-                            .save(new Product("Dining Table", new BigDecimal("149.99"),
-                                    tables));
-                    productRepository
-                            .save(new Product("Bookshelf", new BigDecimal("89.99"),
-                                    storage));
+                    productRepository.save(new Product("Chair",
+                            new BigDecimal("49.99"),
+                            "Comfortable wooden chair",
+                            "https://via.placeholder.com/150",
+                            seating));
+                    productRepository.save(new Product("Dining Table",
+                            new BigDecimal("149.99"),
+                            "Large table for family meals",
+                            "https://via.placeholder.com/150",
+                            tables));
+                    productRepository.save(new Product("Bookshelf",
+                            new BigDecimal("89.99"),
+                            "Spacious wooden bookshelf",
+                            "https://via.placeholder.com/150",
+                            storage));
                 }
             }
         };
