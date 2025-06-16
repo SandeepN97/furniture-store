@@ -57,4 +57,3 @@ docker-compose up --build
 
 The backend will be available on `http://localhost:8080` and the React frontend
 served by Nginx on `http://localhost`.
-
