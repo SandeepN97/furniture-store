@@ -1,72 +1,141 @@
-# Furniture Store
+# 🛋️ Furniture Store
 
-This project is a simple e-commerce example built with **Java**, **React** and **PostgreSQL**.
+## 📌 Project Overview
+A full-featured e-commerce platform for selling furniture online. Customers can browse products, add them to a cart, securely check out, and track their orders. Admins manage inventory and orders through protected dashboards. The project exposes a RESTful API backend and a modern React frontend built with Vite.
 
-## Backend
+## 🛠️ Tech Stack
+- **Backend**: Java 17, Spring Boot, Spring Data JPA, Spring Security, JWT
+- **Database**: PostgreSQL
+- **Frontend**: React, Vite, React Router, Context API, Axios, Tailwind CSS
+- **Testing**: JUnit 5, Mockito, Spring Boot Test, Cypress, React Testing Library
+- **Deployment**: Docker, Render (backend), Vercel (frontend)
 
-The backend uses Spring Boot and Gradle.
+## 🌟 Key Features
 
-```bash
-cd backend
-gradle bootRun
-```
+### 👥 User Features
+- View all products with pagination and category filters
+- View detailed product pages with descriptions, images, and pricing
+- Add items to a cart via React Context API and update quantities
+- Review and modify cart contents
+- Secure checkout with user-provided information
+- JWT-based registration and login
+- Access order history after purchase
+- Order confirmation screen post‑checkout
 
-Database credentials are configured in `src/main/resources/application.properties`.
+### 🧑‍💼 Admin Features
+- Admin login with role-based access
+- Create, edit, and delete products
+- Upload product images using multipart/form-data
+- Access protected dashboard routes
+- Track orders and update their status
 
-The API exposes `POST /api/orders` to create an order from cart data. Endpoints
-under `/api/orders` are protected with JWT authentication. Use `/api/auth/register`
-and `/api/auth/login` to obtain a token.
-`GET /api/orders/user` returns the authenticated user's orders.
+## 🔐 Authentication & Authorization
+- JWT tokens issued on login or registration
+- Tokens stored in `localStorage` and sent via `Authorization` header
+- Spring Security protects API routes and enforces roles (`USER` vs `ADMIN`)
 
+## 🖼️ Image Upload Support
+Images are uploaded through `/api/products/upload-image` using multipart requests. Files are stored under an `uploads/` directory, and the resulting URL is saved in the product data for display on the frontend.
 
-`POST /api/products/upload-image` accepts a multipart file and returns a URL to store in the product's `imageUrl` field.
+## 🧪 Testing
 
+### 🧪 Backend Testing
+- Unit tests with JUnit and Mockito (e.g., `ProductServiceTest`)
+- Integration tests using Spring Boot Test and MockMvc
+- Data seeding verified through `CommandLineRunner` tests
 
-`GET /api/products` returns paged products. Use `page`, `size` and `sort` query parameters for pagination, plus optional `categoryId` and `name` filters.
-
-## Frontend
-
-The frontend uses React with Vite.
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-The checkout page at `/checkout` starts a Stripe Checkout session by posting the
-cart contents to `/api/payments/create-checkout-session`. The backend returns a
-URL that the browser navigates to for payment.
-
-Login using the form at `/login`. View your past orders at `/orders`.
-Admins can manage products at `/admin`, including uploading images and editing or deleting items. New products can be added at `/add-product`.
-
-The main product list uses query parameters for pagination and filtering by category, e.g. `?page=1&categoryId=2`.
-UI components are styled with Tailwind CSS loaded from a CDN. Product cards display in a responsive grid with hover effects and toast notifications appear when items are added to the cart.
-
-The dev server proxies API requests to the backend.
-
-## Development
-
-Run the backend and frontend tests with:
+### 🧪 Frontend Testing
+- Components tested with React Testing Library
+- End-to-end flows tested with Cypress (add to cart, place order)
+- Run all tests with:
 
 ```bash
 gradle -p backend test
 npm test --prefix frontend
 ```
 
+## 🧰 API Reference
+The most common endpoints are listed below:
 
-## Docker Compose
+| Method | Route | Description |
+| --- | --- | --- |
+| `GET` | `/api/products` | List products with optional filters |
+| `GET` | `/api/products/{id}` | Get product details |
+| `POST` | `/api/orders` | Place a new order |
+| `GET` | `/api/orders/user` | Get the current user's orders |
+| `POST` | `/api/auth/register` | Register a new user |
+| `POST` | `/api/auth/login` | Log in and receive a JWT |
 
-To run the whole stack with Docker, build the images and start the services:
+Interactive OpenAPI docs are available at `/swagger-ui.html`.
+
+## 🚀 Deployment Instructions
+
+### 🔧 Backend
+1. Start PostgreSQL (locally or via Docker).
+2. Configure database credentials in `backend/src/main/resources/application.properties`.
+3. Run the application:
+
+```bash
+./gradlew -p backend bootRun
+```
+
+### 💻 Frontend
+1. From the `frontend` folder install dependencies and start Vite:
+
+```bash
+npm install
+npm run dev
+```
+
+2. Set `VITE_API_BASE_URL` if the backend runs on a different host/port.
+
+### 📦 Docker
+A `docker-compose.yml` is provided to run PostgreSQL, the backend, and the Nginx‑served frontend:
 
 ```bash
 docker-compose up --build
 ```
 
-The backend will be available on `http://localhost:8080` and the React frontend
-served by Nginx on `http://localhost`.
+## 🔄 CI/CD
+GitHub Actions run tests on every push and build Docker images for deployment.
 
-Set the `STRIPE_SECRET` environment variable in `docker-compose.yml` or your
-shell to your Stripe secret key so that the payment endpoint can create
-Checkout sessions.
+## 📈 Analytics & Admin Dashboard
+Admins can view metrics such as total orders, revenue, and top-selling products. Charts are implemented with Chart.js on the dashboard.
+
+## 📦 Folder Structure Overview
+
+```text
+backend/
+├── controller/
+├── service/
+├── model/
+├── repository/
+└── application.properties
+
+frontend/
+├── src/components/
+├── src/pages/
+├── src/context/
+└── App.jsx
+```
+
+## 📸 Screenshots
+_Placeholders for screenshots: homepage, cart, and admin panel._
+
+## 📄 License
+This project is released under the MIT License.
+
+## 💡 Future Enhancements
+- Wishlist functionality
+- Stripe/PayPal payment integration
+- Product reviews and ratings
+- Delivery tracking
+- Mobile app version with React Native
+
+## 🤝 Contributing
+1. Fork the repo and create your feature branch.
+2. Commit your changes and open a pull request.
+3. Make sure tests pass before submitting.
+
+## 📫 Contact
+For questions or support, reach out via [GitHub](https://github.com/yourusername).
