@@ -1,5 +1,6 @@
 package com.example.furniturestore.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,7 @@ public class OrderController {
     }
 
     public static class CreateOrderRequest {
+        public String customerName;
         public List<ItemRequest> items;
     }
 
@@ -41,6 +43,7 @@ public class OrderController {
             return ResponseEntity.badRequest().build();
         }
         Order order = new Order();
+        order.setCustomerName(request.customerName);
         for (ItemRequest ir : request.items) {
             Product product = productRepository.findById(ir.productId).orElse(null);
             if (product == null) {
@@ -50,6 +53,10 @@ public class OrderController {
             item.setOrder(order);
             order.getItems().add(item);
         }
+        BigDecimal total = order.getItems().stream()
+                .map(i -> i.getPrice().multiply(BigDecimal.valueOf(i.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        order.setTotalPrice(total);
         Order saved = orderRepository.save(order);
         return ResponseEntity.ok(saved);
     }

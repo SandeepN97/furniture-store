@@ -1,21 +1,9 @@
 import React from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { useCart } from './CartContext';
 
 export default function Cart() {
-  const { items, removeItem, clearCart, getTotalPrice } = useCart();
-
-  const placeOrder = async () => {
-    try {
-      await axios.post('/api/orders', {
-        items: items.map((it) => ({ productId: it.id, quantity: it.quantity })),
-      });
-      clearCart();
-      alert('Order placed!');
-    } catch (e) {
-      alert('Failed to place order');
-    }
-  };
+  const { items, removeItem, getTotalPrice } = useCart();
   if (items.length === 0) {
     return (
       <div>
@@ -53,7 +41,7 @@ export default function Cart() {
         </tbody>
       </table>
       <h3>Total: ${getTotalPrice().toFixed(2)}</h3>
-      <button onClick={placeOrder}>Place Order</button>
+      <Link to="/checkout">Proceed to Checkout</Link>
     </div>
   );
 }

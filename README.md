@@ -25,6 +25,8 @@ npm install
 npm run dev
 ```
 
+The checkout page at `/checkout` sends cart contents to the backend to create an order.
+
 The dev server proxies API requests to the backend.
 
 ## Development
