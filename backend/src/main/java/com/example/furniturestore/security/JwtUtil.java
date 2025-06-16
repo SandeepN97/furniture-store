@@ -15,7 +15,7 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String secret;
 
-  public String generateToken(String username, String role) {
+    public String generateToken(String username, String role) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + 86400000); // 1 day
         return Jwts.builder()

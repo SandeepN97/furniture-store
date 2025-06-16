@@ -46,3 +46,15 @@ gradle -p backend test
 npm test --prefix frontend
 ```
 
+
+## Docker Compose
+
+To run the whole stack with Docker, build the images and start the services:
+
+```bash
+docker-compose up --build
+```
+
+The backend will be available on `http://localhost:8080` and the React frontend
+served by Nginx on `http://localhost`.
+
