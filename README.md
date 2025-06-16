@@ -13,7 +13,9 @@ gradle bootRun
 
 Database credentials are configured in `src/main/resources/application.properties`.
 
-The API exposes `POST /api/orders` to create an order from cart data.
+The API exposes `POST /api/orders` to create an order from cart data. Endpoints
+under `/api/orders` are protected with JWT authentication. Use `/api/auth/register`
+and `/api/auth/login` to obtain a token.
 
 ## Frontend
 
