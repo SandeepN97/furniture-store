@@ -7,7 +7,6 @@ export default function Navbar() {
   const { getItemCount } = useCart();
   const { token, logout } = useAuth();
   const role = token ? parseJwt(token).role : null;
-
   return (
     <nav>
       <Link to="/">Home</Link> |{' '}
