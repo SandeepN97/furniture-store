@@ -26,7 +26,7 @@ public class ProductController {
     public List<Product> all() {
         return repository.findAll();
     }
-  
+
     @GetMapping("/{id}")
     public ResponseEntity<Product> byId(@PathVariable Long id) {
         return repository.findById(id)
