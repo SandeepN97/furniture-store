@@ -6,7 +6,6 @@ import { useAuth } from './AuthContext';
 export default function Navbar() {
   const { getItemCount } = useCart();
   const { token, logout } = useAuth();
-
   return (
     <nav>
       <Link to="/">Home</Link> |{' '}

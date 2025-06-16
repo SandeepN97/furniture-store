@@ -53,7 +53,7 @@ public class ProductController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+  
     public static class CreateProductRequest {
         public String name;
         public BigDecimal price;
