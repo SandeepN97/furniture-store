@@ -8,7 +8,6 @@ export default function AdminPanel() {
   const [products, setProducts] = useState([]);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({ name: '', price: '', description: '', categoryId: '', stockQuantity: '', imageUrl: '', imageFile: null });
-
   const load = () => {
     axios.get('/api/products')
       .then(res => setProducts(res.data.content || res.data))

@@ -13,7 +13,6 @@ export default function App() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { addItem } = useCart();
   const { t } = useTranslation();
-
   const page = parseInt(searchParams.get('page')) || 0;
   const categoryId = searchParams.get('categoryId') || '';
   const size = 5;
