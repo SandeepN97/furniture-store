@@ -1,5 +1,6 @@
 package com.example.furniturestore;
 
+
 import java.math.BigDecimal;
 
 import org.springframework.boot.CommandLineRunner;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.example.furniturestore.model.Product;
 import com.example.furniturestore.repository.ProductRepository;
+
 
 @SpringBootApplication
 public class FurnitureStoreApplication {
