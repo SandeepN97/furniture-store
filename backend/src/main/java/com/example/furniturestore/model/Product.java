@@ -1,7 +1,14 @@
 package com.example.furniturestore.model;
 
-import jakarta.persistence.*;
 import java.math.BigDecimal;
+
+import jakarta.persistence.*;
+
+import com.example.furniturestore.model.Category;
+
+/**
+ * A simple product entity belonging to a category.
+ */
 
 @Entity
 public class Product {
@@ -12,6 +19,10 @@ public class Product {
 
     private String name;
     private BigDecimal price;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public Product() {
     }
@@ -19,6 +30,12 @@ public class Product {
     public Product(String name, BigDecimal price) {
         this.name = name;
         this.price = price;
+    }
+
+    public Product(String name, BigDecimal price, Category category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
     }
 
     public Long getId() {
@@ -43,5 +60,13 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

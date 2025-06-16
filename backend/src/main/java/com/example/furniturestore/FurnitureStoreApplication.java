@@ -1,6 +1,5 @@
 package com.example.furniturestore;
 
-
 import java.math.BigDecimal;
 
 import org.springframework.boot.CommandLineRunner;
@@ -8,9 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.furniturestore.model.Category;
 import com.example.furniturestore.model.Product;
+import com.example.furniturestore.repository.CategoryRepository;
 import com.example.furniturestore.repository.ProductRepository;
-
 
 @SpringBootApplication
 public class FurnitureStoreApplication {
@@ -20,12 +20,28 @@ public class FurnitureStoreApplication {
     }
 
     @Bean
-    CommandLineRunner initDatabase(ProductRepository repository) {
+    CommandLineRunner initDatabase(ProductRepository productRepository,
+            CategoryRepository categoryRepository) {
         return args -> {
-            if (repository.count() == 0) {
-                repository.save(new Product("Chair", new BigDecimal("49.99")));
-                repository.save(new Product("Table", new BigDecimal("149.99")));
-                repository.save(new Product("Sofa", new BigDecimal("499.99")));
+            if (categoryRepository.count() == 0) {
+                Category seating = categoryRepository
+                        .save(new Category("Seating", "Chairs and sofas"));
+                Category tables = categoryRepository
+                        .save(new Category("Tables", "Various tables"));
+                Category storage = categoryRepository
+                        .save(new Category("Storage", "Shelves and cabinets"));
+
+                if (productRepository.count() == 0) {
+                    productRepository
+                            .save(new Product("Chair", new BigDecimal("49.99"),
+                                    seating));
+                    productRepository
+                            .save(new Product("Dining Table", new BigDecimal("149.99"),
+                                    tables));
+                    productRepository
+                            .save(new Product("Bookshelf", new BigDecimal("89.99"),
+                                    storage));
+                }
             }
         };
     }

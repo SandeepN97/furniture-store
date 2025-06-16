@@ -15,7 +15,9 @@ export default function App() {
       <h1>Furniture Store</h1>
       <ul>
         {products.map(p => (
-          <li key={p.id}>{p.name} - ${p.price}</li>
+          <li key={p.id}>
+            {p.name} ({p.category?.name}) - ${p.price}
+          </li>
         ))}
       </ul>
     </div>
