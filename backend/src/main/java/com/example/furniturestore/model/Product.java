@@ -21,7 +21,6 @@ public class Product {
     private BigDecimal price;
     private String description;
     private String imageUrl;
-    private int stockQuantity = 0;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
@@ -43,17 +42,11 @@ public class Product {
 
     public Product(String name, BigDecimal price, String description, String imageUrl,
             Category category) {
-        this(name, price, description, imageUrl, category, 0);
-    }
-
-    public Product(String name, BigDecimal price, String description, String imageUrl,
-            Category category, int stockQuantity) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.imageUrl = imageUrl;
         this.category = category;
-        this.stockQuantity = stockQuantity;
     }
 
     public Long getId() {
@@ -102,13 +95,5 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public int getStockQuantity() {
-        return stockQuantity;
-    }
-
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
     }
 }

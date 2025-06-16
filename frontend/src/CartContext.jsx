@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useToast } from './ToastContext';
-import { useTranslation } from 'react-i18next';
 
 const CartContext = createContext(null);
 
@@ -10,22 +9,9 @@ export function CartProvider({ children }) {
     return saved ? JSON.parse(saved) : [];
   });
   const { showToast } = useToast();
-  const { t } = useTranslation();
-
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(items));
   }, [items]);
-
-  useEffect(() => {
-    const token = localStorage.getItem('savedCart');
-    if (token && items.length === 0) {
-      fetch(`/api/cart/${token}`)
-        .then((r) => r.ok ? r.json() : null)
-        .then((data) => {
-          if (data && data.items) setItems(data.items);
-        });
-    }
-  }, []);
 
   const addItem = (item) => {
     setItems((prev) => {
@@ -37,7 +23,7 @@ export function CartProvider({ children }) {
       }
       return [...prev, { ...item, quantity: 1 }];
     });
-    showToast && showToast(t('addedToCart'));
+    showToast && showToast('Added to cart ✅');
   };
 
   const removeItem = (id) => {
@@ -47,7 +33,6 @@ export function CartProvider({ children }) {
   const clearCart = () => {
     setItems([]);
   };
-
   const getTotalPrice = () => {
     return items.reduce(
       (sum, it) => sum + Number(it.price || 0) * it.quantity,

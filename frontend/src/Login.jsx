@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
-import { useTranslation } from 'react-i18next';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -10,12 +9,11 @@ export default function Login() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const { login } = useAuth();
-  const { t } = useTranslation();
 
   const submit = async () => {
     const errs = {};
-    if (!email) errs.email = t('emailRequired');
-    if (!password) errs.password = t('passwordRequired');
+    if (!email) errs.email = 'Email is required';
+    if (!password) errs.password = 'Password is required';
     if (Object.keys(errs).length) {
       setErrors(errs);
       return;
@@ -25,18 +23,18 @@ export default function Login() {
       await login(email, password);
       navigate('/');
     } catch (err) {
-      setError(t('loginFailed'));
+      setError('Login failed');
     }
   };
 
   return (
     <div className="p-4 max-w-sm mx-auto">
-      <h2 className="text-xl font-bold mb-4">{t('login')}</h2>
+      <h2 className="text-xl font-bold mb-4">Login</h2>
       <div className="mb-2">
         <input
           type="email"
           className="border p-2 w-full"
-          placeholder={t('emailPlaceholder')}
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -46,7 +44,7 @@ export default function Login() {
         <input
           type="password"
           className="border p-2 w-full"
-          placeholder={t('passwordPlaceholder')}
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -58,7 +56,7 @@ export default function Login() {
         onClick={submit}
         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
       >
-        {t('login')}
+        Login
       </button>
       {error && <p className="mt-2 text-red-600">{error}</p>}
     </div>

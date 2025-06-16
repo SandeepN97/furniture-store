@@ -29,9 +29,7 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/api/products", "/api/products/*").permitAll()
-                        .requestMatchers("/api/auth/**", "/api/categories", "/uploads/**", "/ws/**", "/api/blog/**", "/api/newsletter/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/orders/guest").permitAll()
-                        .requestMatchers("/api/cart/**", "/api/payments/paypal/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/categories", "/uploads/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

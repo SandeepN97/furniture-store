@@ -6,28 +6,23 @@ import { useAuth } from './AuthContext';
 
 export default function Checkout() {
   const { items, clearCart, getTotalPrice } = useCart();
-  const { authHeader, token } = useAuth();
+  const { authHeader } = useAuth();
   const [name, setName] = useState('');
-  const [coupon, setCoupon] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const submit = async () => {
     try {
-      const endpoint = token ? '/api/orders' : '/api/orders/guest';
-      await axios.post(
-        endpoint,
+      const res = await axios.post(
+        '/api/payments/create-checkout-session',
         {
-          customerName: name,
           items: items.map((it) => ({ productId: it.id, quantity: it.quantity })),
-          couponCode: coupon || null,
         },
         { headers: authHeader() }
       );
-      clearCart();
-      navigate('/success');
+      window.location.href = res.data.url;
     } catch (err) {
-      setMessage('Failed to submit order');
+      setMessage('Failed to start checkout');
     }
   };
 
@@ -53,23 +48,8 @@ export default function Checkout() {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <input
-        type="text"
-        placeholder="Coupon code"
-        value={coupon}
-        onChange={(e) => setCoupon(e.target.value)}
-      />
-      <button onClick={submit}>Place Order</button>
+      <button onClick={submit}>Pay with Stripe</button>
       {message && <p>{message}</p>}
-      <button
-        onClick={async () => {
-          const res = await axios.post('/api/cart/save', { items });
-          localStorage.setItem('savedCart', res.data.token);
-          setMessage('Cart saved!');
-        }}
-      >
-        Save Cart
-      </button>
     </div>
   );
 }

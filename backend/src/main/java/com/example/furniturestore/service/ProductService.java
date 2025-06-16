@@ -29,16 +29,16 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    public Product create(String name, BigDecimal price, String description, String imageUrl, Long categoryId, int stockQuantity) {
+    public Product create(String name, BigDecimal price, String description, String imageUrl, Long categoryId) {
         Category category = null;
         if (categoryId != null) {
             category = categoryRepository.findById(categoryId).orElse(null);
         }
-        Product product = new Product(name, price, description, imageUrl, category, stockQuantity);
+        Product product = new Product(name, price, description, imageUrl, category);
         return productRepository.save(product);
     }
 
-    public Optional<Product> update(Long id, String name, BigDecimal price, String description, String imageUrl, Long categoryId, Integer stockQuantity) {
+    public Optional<Product> update(Long id, String name, BigDecimal price, String description, String imageUrl, Long categoryId) {
         return productRepository.findById(id).map(existing -> {
             existing.setName(name);
             existing.setPrice(price);
@@ -49,9 +49,6 @@ public class ProductService {
                 category = categoryRepository.findById(categoryId).orElse(null);
             }
             existing.setCategory(category);
-            if (stockQuantity != null) {
-                existing.setStockQuantity(stockQuantity);
-            }
             return productRepository.save(existing);
         });
     }

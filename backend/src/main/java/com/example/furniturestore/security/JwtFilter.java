@@ -31,17 +31,12 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             try {
-                if (!jwtUtil.isTokenExpired(token)) {
-                    String username = jwtUtil.getUsername(token);
-                    var userDetails = userDetailsService.loadUserByUsername(username);
-                    var auth = new UsernamePasswordAuthenticationToken(userDetails, null,
-                            userDetails.getAuthorities());
-                    auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(auth);
-                } else {
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    return;
-                }
+                String username = jwtUtil.getUsername(token);
+                var userDetails = userDetailsService.loadUserByUsername(username);
+                var auth = new UsernamePasswordAuthenticationToken(userDetails, null,
+                        userDetails.getAuthorities());
+                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(auth);
             } catch (Exception ex) {
                 // invalid token - ignore
             }

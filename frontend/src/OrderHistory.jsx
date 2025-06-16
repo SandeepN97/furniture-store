@@ -23,24 +23,7 @@ export default function OrderHistory() {
       <ul>
         {orders.map((o) => (
           <li key={o.id}>
-            {o.orderDate} - ${o.totalPrice} ({o.status})
-            {' '}
-            <button
-              onClick={async () => {
-                const res = await axios.get(`/api/orders/${o.id}/invoice`, {
-                  headers: authHeader(),
-                  responseType: 'blob',
-                });
-                const url = window.URL.createObjectURL(new Blob([res.data]));
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `invoice-${o.id}.pdf`;
-                a.click();
-                window.URL.revokeObjectURL(url);
-              }}
-            >
-              Invoice
-            </button>
+            {o.orderDate} - ${o.totalPrice}
           </li>
         ))}
       </ul>

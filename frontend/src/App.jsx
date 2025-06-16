@@ -3,9 +3,6 @@ import axios from 'axios';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useCart } from './CartContext';
 import Spinner from './Spinner';
-import { useTranslation } from 'react-i18next';
-import RecommendedProducts from './RecommendedProducts';
-import EmailSignup from './EmailSignup';
 
 export default function App() {
   const [products, setProducts] = useState([]);
@@ -14,7 +11,6 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const { addItem } = useCart();
-  const { t } = useTranslation();
 
   const page = parseInt(searchParams.get('page')) || 0;
   const categoryId = searchParams.get('categoryId') || '';
@@ -52,13 +48,13 @@ export default function App() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">{t('furnitureStore')}</h1>
+      <h1 className="text-2xl font-bold mb-4">Furniture Store</h1>
       <select
         className="border p-2 mb-4"
         value={categoryId}
         onChange={changeCategory}
       >
-        <option value="">{t('allCategories')}</option>
+        <option value="">All Categories</option>
         {categories.map((c) => (
           <option key={c.id} value={c.id}>
             {c.name}
@@ -86,16 +82,12 @@ export default function App() {
                 <h3 className="font-semibold">{p.name}</h3>
               </Link>
               <p className="text-gray-600">${p.price}</p>
-              {p.stockQuantity > 0 ? (
-                <button
-                  onClick={() => addItem(p)}
-                  className="mt-2 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
-                >
-                  {t('addToCart')}
-                </button>
-              ) : (
-                <p className="text-red-600 mt-2">{t('outOfStock')}</p>
-              )}
+              <button
+                onClick={() => addItem(p)}
+                className="mt-2 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+              >
+                Add to Cart
+              </button>
             </div>
           ))}
         </div>
@@ -107,18 +99,16 @@ export default function App() {
           disabled={page === 0}
           className="px-3 py-1 border rounded disabled:opacity-50"
         >
-          {t('prev')}
+          Prev
         </button>
         <button
           onClick={next}
           disabled={pageInfo.number >= pageInfo.totalPages - 1}
           className="px-3 py-1 border rounded disabled:opacity-50"
         >
-          {t('next')}
+          Next
         </button>
       </div>
-      <RecommendedProducts />
-      <EmailSignup />
     </div>
   );
 }

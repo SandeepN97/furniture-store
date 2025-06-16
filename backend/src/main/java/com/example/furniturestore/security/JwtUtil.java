@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -29,27 +28,19 @@ public class JwtUtil {
     }
 
     public String getUsername(String token) {
-        return parseClaims(token).getSubject();
-    }
-
-    public String getRole(String token) {
-        Claims claims = parseClaims(token);
-        Object role = claims.get("role");
-        return role != null ? role.toString() : null;
-    }
-
-    public boolean isTokenExpired(String token) {
-        try {
-            return parseClaims(token).getExpiration().before(new Date());
-        } catch (ExpiredJwtException ex) {
-            return true;
-        }
-    }
-
-    private Claims parseClaims(String token) {
-        return Jwts.parser()
+        Claims claims = Jwts.parser()
                 .setSigningKey(secret.getBytes())
                 .parseClaimsJws(token)
                 .getBody();
+        return claims.getSubject();
+    }
+
+    public String getRole(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(secret.getBytes())
+                .parseClaimsJws(token)
+                .getBody();
+        Object role = claims.get("role");
+        return role != null ? role.toString() : null;
     }
 }

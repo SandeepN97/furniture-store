@@ -14,6 +14,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "AND (:name IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%')))")
     Page<Product> search(@Param("categoryId") Long categoryId, @Param("name") String name,
             Pageable pageable);
-
-    Page<Product> findByCategoryId(Long categoryId, Pageable pageable);
 }

@@ -3,14 +3,11 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from './CartContext';
 import Spinner from './Spinner';
-import { useTranslation } from 'react-i18next';
 
 export default function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const { addItem } = useCart();
-  const { t } = useTranslation();
-
   useEffect(() => {
     axios.get(`/api/products/${id}`)
       .then(res => setProduct(res.data))
@@ -34,16 +31,12 @@ export default function ProductDetails() {
       <p className="text-gray-600">Category: {product.category?.name}</p>
       <p className="text-xl">Price: ${product.price}</p>
       <p className="mb-4">{product.description}</p>
-      {product.stockQuantity > 0 ? (
-        <button
-          onClick={() => addItem(product)}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          {t('addToCart')}
-        </button>
-      ) : (
-        <p className="text-red-600">{t('outOfStock')}</p>
-      )}
+      <button
+        onClick={() => addItem(product)}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
+        Add to Cart
+      </button>
     </div>
   );
 }
