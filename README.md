@@ -18,7 +18,6 @@ under `/api/orders` are protected with JWT authentication. Use `/api/auth/regist
 and `/api/auth/login` to obtain a token.
 `GET /api/orders/user` returns the authenticated user's orders.
 
-
 `POST /api/products/upload-image` accepts a multipart file and returns a URL to store in the product's `imageUrl` field.
 
 `GET /api/products` returns paged products. Use `page`, `size` and `sort` query parameters for pagination, plus optional `categoryId` and `name` filters.
