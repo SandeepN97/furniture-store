@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.furniturestore.model.ApiKey;
 
 public interface ApiKeyRepository extends JpaRepository<ApiKey, Long> {
-    Optional<ApiKey> findByKey(String key);
+    Optional<ApiKey> findByPrefix(String prefix);
+
 }

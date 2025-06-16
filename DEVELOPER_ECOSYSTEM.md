@@ -21,3 +21,13 @@ The backend now includes springdoc which serves interactive Swagger UI at `/swag
 ## Theme System
 
 The frontend includes a simple light/dark mode toggle in the navigation bar. The selected theme is stored in `localStorage`.
+
+## Future Ideas
+
+The following concepts are not implemented but outline potential directions for extending the platform:
+
+- **GPT-based Auto Product Writer** – upload a photo and let AI generate the name, description and tags.
+- **AI Order Summary Bot** – send customers a friendly summary and return tips after each purchase.
+- **Geo‑Personalized Pricing** – automatically adjust pricing based on the user's location and demand.
+- **NFT Ownership Tags** – track unique furniture designs using NFTs for proof of ownership.
+

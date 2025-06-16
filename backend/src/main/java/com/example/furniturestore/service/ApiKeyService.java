@@ -2,7 +2,10 @@ package com.example.furniturestore.service;
 
 import java.util.UUID;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.Map;
+
 
 import com.example.furniturestore.model.ApiKey;
 import com.example.furniturestore.repository.ApiKeyRepository;
@@ -10,18 +13,30 @@ import com.example.furniturestore.repository.ApiKeyRepository;
 @Service
 public class ApiKeyService {
     private final ApiKeyRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
-    public ApiKeyService(ApiKeyRepository repository) {
+    public ApiKeyService(ApiKeyRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public ApiKey create(String name) {
+    public Map<String, String> create(String name) {
         String key = UUID.randomUUID().toString();
-        ApiKey apiKey = new ApiKey(name, key);
-        return repository.save(apiKey);
+        String prefix = key.substring(0, 8);
+        String hash = passwordEncoder.encode(key);
+        ApiKey apiKey = new ApiKey(name, prefix, hash);
+        repository.save(apiKey);
+        return Map.of(
+            "name", name,
+            "prefix", prefix,
+            "key", key
+        );
     }
 
     public boolean isValid(String key) {
-        return repository.findByKey(key).isPresent();
+        String prefix = key.substring(0, 8);
+        return repository.findByPrefix(prefix)
+                .map(stored -> passwordEncoder.matches(key, stored.getKeyHash()))
+                .orElse(false);
     }
 }

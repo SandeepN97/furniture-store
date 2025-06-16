@@ -13,21 +13,23 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import com.example.furniturestore.security.ApiKeyFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
+    public SecurityConfig(JwtFilter jwtFilter) {
     private final ApiKeyFilter apiKeyFilter;
 
     public SecurityConfig(JwtFilter jwtFilter, ApiKeyFilter apiKeyFilter) {
+
         this.jwtFilter = jwtFilter;
         this.apiKeyFilter = apiKeyFilter;
-    }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, ApiKeyFilter apiKeyFilter) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth

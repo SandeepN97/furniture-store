@@ -28,7 +28,7 @@ public class ApiKeyFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String key = request.getHeader("X-API-KEY");
-        if (key != null && apiKeyService.isValid(key)) {
+        if (key != null && key.length() >= 8 && apiKeyService.isValid(key)) {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     "api-client", null, java.util.List.of(new SimpleGrantedAuthority("ROLE_API")));
             SecurityContextHolder.getContext().setAuthentication(auth);

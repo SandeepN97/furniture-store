@@ -11,14 +11,17 @@ public class ApiKey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String key;
+    private String prefix;
+    private String keyHash;
+
 
     public ApiKey() {
     }
 
-    public ApiKey(String name, String key) {
+    public ApiKey(String name, String prefix, String keyHash) {
         this.name = name;
-        this.key = key;
+        this.prefix = prefix;
+        this.keyHash = keyHash;
     }
 
     public Long getId() {
@@ -37,11 +40,19 @@ public class ApiKey {
         this.name = name;
     }
 
-    public String getKey() {
-        return key;
+    public String getPrefix() {
+        return prefix;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getKeyHash() {
+        return keyHash;
+    }
+
+    public void setKeyHash(String keyHash) {
+        this.keyHash = keyHash;
     }
 }
