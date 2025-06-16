@@ -13,15 +13,16 @@ export default function Checkout() {
 
   const submit = async () => {
     try {
-      await axios.post('/api/orders', {
-        customerName: name,
-        items: items.map((it) => ({ productId: it.id, quantity: it.quantity })),
-      }, { headers: authHeader() });
-      clearCart();
-      setMessage('Order submitted successfully!');
-      setTimeout(() => navigate('/'), 1500);
+      const res = await axios.post(
+        '/api/payments/create-checkout-session',
+        {
+          items: items.map((it) => ({ productId: it.id, quantity: it.quantity })),
+        },
+        { headers: authHeader() }
+      );
+      window.location.href = res.data.url;
     } catch (err) {
-      setMessage('Failed to submit order');
+      setMessage('Failed to start checkout');
     }
   };
 
@@ -47,7 +48,7 @@ export default function Checkout() {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <button onClick={submit}>Submit Order</button>
+      <button onClick={submit}>Pay with Stripe</button>
       {message && <p>{message}</p>}
     </div>
   );

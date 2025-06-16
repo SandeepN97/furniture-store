@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAuth } from './AuthContext';
+import { useAuth, parseJwt } from './AuthContext';
 
 export default function AdminPanel() {
-  const { authHeader, role } = useAuth();
+  const { token, authHeader } = useAuth();
+  const role = token ? parseJwt(token).role : null;
   const [products, setProducts] = useState([]);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({ name: '', price: '', description: '', categoryId: '', imageUrl: '', imageFile: null });
