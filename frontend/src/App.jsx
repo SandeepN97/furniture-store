@@ -17,9 +17,8 @@ export default function App() {
   const size = 5;
 
   useEffect(() => {
-    axios
-      .get('/api/categories')
-      .then((res) => setCategories(res.data))
+    axios.get('/api/products')
+      .then(res => setProducts(res.data.content || res.data))
       .catch(() => {});
   }, []);
 
