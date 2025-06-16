@@ -40,6 +40,7 @@ Login using the form at `/login`. View your past orders at `/orders`.
 Admins can manage products at `/admin`, including uploading images and editing or deleting items. New products can be added at `/add-product`.
 
 The main product list uses query parameters for pagination and filtering by category, e.g. `?page=1&categoryId=2`.
+UI components are styled with Tailwind CSS loaded from a CDN. Product cards display in a responsive grid with hover effects and toast notifications appear when items are added to the cart.
 
 The dev server proxies API requests to the backend.
 

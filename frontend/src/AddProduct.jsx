@@ -12,12 +12,21 @@ export default function AddProduct() {
   const [categoryId, setCategoryId] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [message, setMessage] = useState('');
-
+  const [errors, setErrors] = useState({});
   useEffect(() => {
     axios.get('/api/categories').then(res => setCategories(res.data)).catch(() => {});
   }, []);
 
   const submit = async () => {
+    const errs = {};
+    if (!name) errs.name = 'Name is required';
+    if (!price) errs.price = 'Price is required';
+    if (!categoryId) errs.categoryId = 'Category is required';
+    if (Object.keys(errs).length) {
+      setErrors(errs);
+      return;
+    }
+    setErrors({});
     try {
       let imageUrl = '';
       if (imageFile) {
@@ -49,20 +58,61 @@ export default function AddProduct() {
   }
 
   return (
-    <div>
-      <h2>Add Product</h2>
-      <input placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
-      <input placeholder="Price" value={price} onChange={e => setPrice(e.target.value)} />
-      <textarea placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
-      <select value={categoryId} onChange={e => setCategoryId(e.target.value)}>
-        <option value="">Select Category</option>
-        {categories.map(c => (
-          <option key={c.id} value={c.id}>{c.name}</option>
-        ))}
-      </select>
-      <input type="file" onChange={e => setImageFile(e.target.files[0])} />
-      <button onClick={submit}>Save</button>
-      {message && <p>{message}</p>}
+    <div className="p-4 max-w-md mx-auto">
+      <h2 className="text-xl font-bold mb-4">Add Product</h2>
+      <div className="mb-2">
+        <input
+          className="border p-2 w-full"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        {errors.name && <p className="text-red-600 text-sm">{errors.name}</p>}
+      </div>
+      <div className="mb-2">
+        <input
+          className="border p-2 w-full"
+          placeholder="Price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+        {errors.price && <p className="text-red-600 text-sm">{errors.price}</p>}
+      </div>
+      <textarea
+        className="border p-2 w-full mb-2"
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      <div className="mb-2">
+        <select
+          className="border p-2 w-full"
+          value={categoryId}
+          onChange={(e) => setCategoryId(e.target.value)}
+        >
+          <option value="">Select Category</option>
+          {categories.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+        {errors.categoryId && (
+          <p className="text-red-600 text-sm">{errors.categoryId}</p>
+        )}
+      </div>
+      <input
+        type="file"
+        onChange={(e) => setImageFile(e.target.files[0])}
+        className="mb-2"
+      />
+      <button
+        onClick={submit}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
+        Save
+      </button>
+      {message && <p className="mt-2 text-green-600">{message}</p>}
     </div>
   );
 }

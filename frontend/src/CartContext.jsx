@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useToast } from './ToastContext';
 
 const CartContext = createContext(null);
 
@@ -7,7 +8,7 @@ export function CartProvider({ children }) {
     const saved = localStorage.getItem('cart');
     return saved ? JSON.parse(saved) : [];
   });
-
+  const { showToast } = useToast();
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(items));
   }, [items]);
@@ -22,6 +23,7 @@ export function CartProvider({ children }) {
       }
       return [...prev, { ...item, quantity: 1 }];
     });
+    showToast && showToast('Added to cart ✅');
   };
 
   const removeItem = (id) => {
