@@ -21,6 +21,7 @@ and `/api/auth/login` to obtain a token.
 
 `POST /api/products/upload-image` accepts a multipart file and returns a URL to store in the product's `imageUrl` field.
 
+
 `GET /api/products` returns paged products. Use `page`, `size` and `sort` query parameters for pagination, plus optional `categoryId` and `name` filters.
 
 ## Frontend
@@ -36,6 +37,7 @@ npm run dev
 The checkout page at `/checkout` starts a Stripe Checkout session by posting the
 cart contents to `/api/payments/create-checkout-session`. The backend returns a
 URL that the browser navigates to for payment.
+
 Login using the form at `/login`. View your past orders at `/orders`.
 Admins can manage products at `/admin`, including uploading images and editing or deleting items. New products can be added at `/add-product`.
 

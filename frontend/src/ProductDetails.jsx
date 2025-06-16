@@ -8,7 +8,6 @@ export default function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const { addItem } = useCart();
-
   useEffect(() => {
     axios.get(`/api/products/${id}`)
       .then(res => setProduct(res.data))

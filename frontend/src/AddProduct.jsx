@@ -13,7 +13,6 @@ export default function AddProduct() {
   const [imageFile, setImageFile] = useState(null);
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({});
-
   useEffect(() => {
     axios.get('/api/categories').then(res => setCategories(res.data)).catch(() => {});
   }, []);
@@ -28,7 +27,6 @@ export default function AddProduct() {
       return;
     }
     setErrors({});
-
     try {
       let imageUrl = '';
       if (imageFile) {
