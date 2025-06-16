@@ -76,9 +76,14 @@ public class OrderController {
             if (product == null) {
                 return ResponseEntity.badRequest().build();
             }
+            if (product.getStockQuantity() < ir.quantity || product.getStockQuantity() <= 0) {
+                return ResponseEntity.badRequest().build();
+            }
             OrderItem item = new OrderItem(product, ir.quantity, product.getPrice());
             item.setOrder(order);
             order.getItems().add(item);
+            product.setStockQuantity(product.getStockQuantity() - ir.quantity);
+            productRepository.save(product);
         }
         BigDecimal total = order.getItems().stream()
                 .map(i -> i.getPrice().multiply(BigDecimal.valueOf(i.getQuantity())))

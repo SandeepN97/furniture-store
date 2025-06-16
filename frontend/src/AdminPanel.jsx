@@ -7,8 +7,7 @@ export default function AdminPanel() {
   const role = token ? parseJwt(token).role : null;
   const [products, setProducts] = useState([]);
   const [editing, setEditing] = useState(null);
-  const [form, setForm] = useState({ name: '', price: '', description: '', categoryId: '', imageUrl: '', imageFile: null });
-
+  const [form, setForm] = useState({ name: '', price: '', description: '', categoryId: '', stockQuantity: '', imageUrl: '', imageFile: null });
   const load = () => {
     axios.get('/api/products')
       .then(res => setProducts(res.data.content || res.data))
@@ -28,6 +27,7 @@ export default function AdminPanel() {
       price: p.price,
       description: p.description,
       categoryId: p.category ? p.category.id : '',
+      stockQuantity: p.stockQuantity,
       imageUrl: p.imageUrl || '',
       imageFile: null
     });
@@ -41,9 +41,9 @@ export default function AdminPanel() {
       const res = await axios.post('/api/products/upload-image', fd, { headers: { ...authHeader(), 'Content-Type': 'multipart/form-data' } });
       url = res.data.url;
     }
-    await axios.put(`/api/products/${editing}`, { ...form, categoryId: Number(form.categoryId), imageUrl: url }, { headers: authHeader() });
+    await axios.put(`/api/products/${editing}`, { ...form, categoryId: Number(form.categoryId), imageUrl: url, stockQuantity: Number(form.stockQuantity) }, { headers: authHeader() });
     setEditing(null);
-    setForm({ name: '', price: '', description: '', categoryId: '', imageUrl: '', imageFile: null });
+    setForm({ name: '', price: '', description: '', categoryId: '', stockQuantity: '', imageUrl: '', imageFile: null });
     load();
   };
 
@@ -64,6 +64,7 @@ export default function AdminPanel() {
           <h3>Edit Product</h3>
           <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Name" />
           <input value={form.price} onChange={e => setForm({ ...form, price: e.target.value })} placeholder="Price" />
+          <input value={form.stockQuantity} onChange={e => setForm({ ...form, stockQuantity: e.target.value })} placeholder="Stock" />
           <textarea value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} placeholder="Description" />
           <input value={form.categoryId} onChange={e => setForm({ ...form, categoryId: e.target.value })} placeholder="Category ID" />
           <input type="file" onChange={e => setForm({ ...form, imageFile: e.target.files[0] })} />

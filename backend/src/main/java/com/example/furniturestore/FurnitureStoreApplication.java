@@ -41,17 +41,20 @@ public class FurnitureStoreApplication {
                             new BigDecimal("49.99"),
                             "Comfortable wooden chair",
                             "https://via.placeholder.com/150",
-                            seating));
+                            seating,
+                            10));
                     productRepository.save(new Product("Dining Table",
                             new BigDecimal("149.99"),
                             "Large table for family meals",
                             "https://via.placeholder.com/150",
-                            tables));
+                            tables,
+                            5));
                     productRepository.save(new Product("Bookshelf",
                             new BigDecimal("89.99"),
                             "Spacious wooden bookshelf",
                             "https://via.placeholder.com/150",
-                            storage));
+                            storage,
+                            8));
                 }
             }
             if (userRepository.count() == 0) {

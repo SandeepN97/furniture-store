@@ -28,5 +28,6 @@
   "loginFailed": "लगइन असफल",
   "emailPlaceholder": "इमेल",
   "passwordPlaceholder": "पासवर्ड",
-  "addedToCart": "कार्टमा थपियो ✅"
+  "addedToCart": "कार्टमा थपियो ✅",
+  "outOfStock": "स्टक समाप्त"
 }

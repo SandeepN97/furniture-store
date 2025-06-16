@@ -83,12 +83,16 @@ export default function App() {
                 <h3 className="font-semibold">{p.name}</h3>
               </Link>
               <p className="text-gray-600">${p.price}</p>
-              <button
-                onClick={() => addItem(p)}
-                className="mt-2 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
-              >
-                {t('addToCart')}
-              </button>
+              {p.stockQuantity > 0 ? (
+                <button
+                  onClick={() => addItem(p)}
+                  className="mt-2 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                >
+                  {t('addToCart')}
+                </button>
+              ) : (
+                <p className="text-red-600 mt-2">{t('outOfStock')}</p>
+              )}
             </div>
           ))}
         </div>

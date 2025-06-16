@@ -37,8 +37,7 @@ class ProductServiceTest {
         Product saved = new Product("Chair", new BigDecimal("20.00"), category);
         when(productRepository.save(any(Product.class))).thenReturn(saved);
 
-        Product result = productService.create("Chair", new BigDecimal("20.00"), "desc", null, 1L);
-
+        Product result = productService.create("Chair", new BigDecimal("20.00"), "desc", null, 1L, 5);
         assertEquals("Chair", result.getName());
         assertEquals(category, result.getCategory());
         verify(productRepository).save(any(Product.class));

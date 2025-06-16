@@ -28,5 +28,6 @@
   "loginFailed": "Login failed",
   "emailPlaceholder": "Email",
   "passwordPlaceholder": "Password",
-  "addedToCart": "Added to cart ✅"
+  "addedToCart": "Added to cart ✅",
+  "outOfStock": "Out of Stock"
 }

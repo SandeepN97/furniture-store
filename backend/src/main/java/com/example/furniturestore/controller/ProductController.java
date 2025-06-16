@@ -58,6 +58,7 @@ public class ProductController {
         public String description;
         public String imageUrl;
         public Long categoryId;
+        public Integer stockQuantity;
     }
 
     @PostMapping
@@ -67,8 +68,9 @@ public class ProductController {
         if (request.categoryId != null) {
             category = categoryRepository.findById(request.categoryId).orElse(null);
         }
+        int qty = request.stockQuantity != null ? request.stockQuantity : 0;
         Product product = new Product(request.name, request.price, request.description,
-                request.imageUrl, category);
+                request.imageUrl, category, qty);
         Product saved = repository.save(product);
         return ResponseEntity.ok(saved);
     }
@@ -87,6 +89,9 @@ public class ProductController {
                 existing.setCategory(null);
             }
             existing.setImageUrl(request.imageUrl);
+            if (request.stockQuantity != null) {
+                existing.setStockQuantity(request.stockQuantity);
+            }
             Product saved = repository.save(existing);
             return ResponseEntity.ok(saved);
         }).orElse(ResponseEntity.notFound().build());

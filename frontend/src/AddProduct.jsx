@@ -11,6 +11,7 @@ export default function AddProduct() {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [categoryId, setCategoryId] = useState('');
+  const [stockQuantity, setStockQuantity] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({});
@@ -41,7 +42,7 @@ export default function AddProduct() {
       }
       await axios.post(
         '/api/products',
-        { name, price, description, categoryId: Number(categoryId), imageUrl },
+        { name, price, description, categoryId: Number(categoryId), imageUrl, stockQuantity: Number(stockQuantity) },
         { headers: authHeader() }
       );
       setMessage(t('productCreated'));
@@ -49,6 +50,7 @@ export default function AddProduct() {
       setPrice('');
       setDescription('');
       setCategoryId('');
+      setStockQuantity('');
       setImageFile(null);
     } catch (err) {
       setMessage(t('failedToCreateProduct'));
@@ -79,6 +81,14 @@ export default function AddProduct() {
           onChange={(e) => setPrice(e.target.value)}
         />
         {errors.price && <p className="text-red-600 text-sm">{errors.price}</p>}
+      </div>
+      <div className="mb-2">
+        <input
+          className="border p-2 w-full"
+          placeholder="Stock Quantity"
+          value={stockQuantity}
+          onChange={(e) => setStockQuantity(e.target.value)}
+        />
       </div>
       <textarea
         className="border p-2 w-full mb-2"

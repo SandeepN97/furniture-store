@@ -28,5 +28,6 @@
   "loginFailed": "Error de inicio de sesión",
   "emailPlaceholder": "Correo",
   "passwordPlaceholder": "Contraseña",
-  "addedToCart": "Añadido al carrito ✅"
+  "addedToCart": "Añadido al carrito ✅",
+  "outOfStock": "Agotado"
 }

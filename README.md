@@ -21,7 +21,7 @@ and `/api/auth/login` to obtain a token.
 
 `POST /api/products/upload-image` accepts a multipart file and returns a URL to store in the product's `imageUrl` field.
 
-`GET /api/products` returns paged products. Use `page`, `size` and `sort` query parameters for pagination, plus optional `categoryId` and `name` filters.
+`GET /api/products` returns paged products. Use `page`, `size` and `sort` query parameters for pagination, plus optional `categoryId` and `name` filters. Each product contains a `stockQuantity` showing available inventory. When an order is placed stock decreases and ordering more than the available quantity fails.
 
 ## Frontend
 
