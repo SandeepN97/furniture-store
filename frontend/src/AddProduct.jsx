@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth, parseJwt } from './AuthContext';
+import { useTranslation } from 'react-i18next';
 
 export default function AddProduct() {
   const { token, authHeader } = useAuth();
@@ -13,15 +14,16 @@ export default function AddProduct() {
   const [imageFile, setImageFile] = useState(null);
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({});
+  const { t } = useTranslation();
   useEffect(() => {
     axios.get('/api/categories').then(res => setCategories(res.data)).catch(() => {});
   }, []);
 
   const submit = async () => {
     const errs = {};
-    if (!name) errs.name = 'Name is required';
-    if (!price) errs.price = 'Price is required';
-    if (!categoryId) errs.categoryId = 'Category is required';
+    if (!name) errs.name = t('nameRequired');
+    if (!price) errs.price = t('priceRequired');
+    if (!categoryId) errs.categoryId = t('categoryRequired');
     if (Object.keys(errs).length) {
       setErrors(errs);
       return;
@@ -42,28 +44,28 @@ export default function AddProduct() {
         { name, price, description, categoryId: Number(categoryId), imageUrl },
         { headers: authHeader() }
       );
-      setMessage('Product created');
+      setMessage(t('productCreated'));
       setName('');
       setPrice('');
       setDescription('');
       setCategoryId('');
       setImageFile(null);
     } catch (err) {
-      setMessage('Failed to create product');
+      setMessage(t('failedToCreateProduct'));
     }
   };
 
   if (role !== 'ADMIN') {
-    return <div>Not authorized</div>;
+    return <div>{t('notAuthorized')}</div>;
   }
 
   return (
     <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Add Product</h2>
+      <h2 className="text-xl font-bold mb-4">{t('addProduct')}</h2>
       <div className="mb-2">
         <input
           className="border p-2 w-full"
-          placeholder="Name"
+          placeholder={t('namePlaceholder')}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -72,7 +74,7 @@ export default function AddProduct() {
       <div className="mb-2">
         <input
           className="border p-2 w-full"
-          placeholder="Price"
+          placeholder={t('pricePlaceholder')}
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
@@ -80,7 +82,7 @@ export default function AddProduct() {
       </div>
       <textarea
         className="border p-2 w-full mb-2"
-        placeholder="Description"
+        placeholder={t('descriptionPlaceholder')}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
@@ -90,7 +92,7 @@ export default function AddProduct() {
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
         >
-          <option value="">Select Category</option>
+          <option value="">{t('selectCategory')}</option>
           {categories.map((c) => (
             <option key={c.id} value={c.id}>
               {c.name}
@@ -110,7 +112,7 @@ export default function AddProduct() {
         onClick={submit}
         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
       >
-        Save
+        {t('save')}
       </button>
       {message && <p className="mt-2 text-green-600">{message}</p>}
     </div>

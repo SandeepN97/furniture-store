@@ -42,6 +42,8 @@ Admins can also view sales analytics at `/dashboard` showing total users, orders
 The main product list uses query parameters for pagination and filtering by category, e.g. `?page=1&categoryId=2`.
 UI components are styled with Tailwind CSS loaded from a CDN. Product cards display in a responsive grid with hover effects and toast notifications appear when items are added to the cart.
 
+The app ships with English and Spanish translations. Use the language selector in the navigation bar to switch languages at runtime. Translations are powered by `react-i18next`.
+
 The dev server proxies API requests to the backend.
 
 ## Development

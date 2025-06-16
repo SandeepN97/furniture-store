@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useToast } from './ToastContext';
+import { useTranslation } from 'react-i18next';
 
 const CartContext = createContext(null);
 
@@ -9,6 +10,7 @@ export function CartProvider({ children }) {
     return saved ? JSON.parse(saved) : [];
   });
   const { showToast } = useToast();
+  const { t } = useTranslation();
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(items));
   }, [items]);
@@ -23,7 +25,7 @@ export function CartProvider({ children }) {
       }
       return [...prev, { ...item, quantity: 1 }];
     });
-    showToast && showToast('Added to cart ✅');
+    showToast && showToast(t('addedToCart'));
   };
 
   const removeItem = (id) => {
