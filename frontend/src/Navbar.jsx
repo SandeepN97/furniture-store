@@ -56,6 +56,7 @@ export default function Navbar() {
       >
         <option value="en">EN</option>
         <option value="es">ES</option>
+        <option value="ne">NP</option>
       </select>
     </nav>
   );

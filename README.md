@@ -18,6 +18,7 @@ under `/api/orders` are protected with JWT authentication. Use `/api/auth/regist
 and `/api/auth/login` to obtain a token.
 `GET /api/orders/user` returns the authenticated user's orders.
 
+
 `POST /api/products/upload-image` accepts a multipart file and returns a URL to store in the product's `imageUrl` field.
 
 `GET /api/products` returns paged products. Use `page`, `size` and `sort` query parameters for pagination, plus optional `categoryId` and `name` filters.
@@ -42,7 +43,7 @@ Admins can also view sales analytics at `/dashboard` showing total users, orders
 The main product list uses query parameters for pagination and filtering by category, e.g. `?page=1&categoryId=2`.
 UI components are styled with Tailwind CSS loaded from a CDN. Product cards display in a responsive grid with hover effects and toast notifications appear when items are added to the cart.
 
-The app ships with English and Spanish translations. Use the language selector in the navigation bar to switch languages at runtime. Translations are powered by `react-i18next`.
+The app ships with English, Spanish and Nepali translations. Use the language selector in the navigation bar to switch languages at runtime. Translations are powered by `react-i18next`.
 
 The dev server proxies API requests to the backend.
 
