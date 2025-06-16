@@ -11,6 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+
 
 @Entity
 public class Order {
@@ -25,6 +28,9 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> items = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     public Order() {
     }
 
@@ -66,5 +72,13 @@ public class Order {
 
     public void setItems(List<OrderItem> items) {
         this.items = items;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

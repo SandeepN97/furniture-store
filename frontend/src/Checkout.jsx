@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from './CartContext';
+import { useAuth } from './AuthContext';
 
 export default function Checkout() {
   const { items, clearCart, getTotalPrice } = useCart();
+  const { authHeader } = useAuth();
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
@@ -14,7 +16,7 @@ export default function Checkout() {
       await axios.post('/api/orders', {
         customerName: name,
         items: items.map((it) => ({ productId: it.id, quantity: it.quantity })),
-      });
+      }, { headers: authHeader() });
       clearCart();
       setMessage('Order submitted successfully!');
       setTimeout(() => navigate('/'), 1500);
