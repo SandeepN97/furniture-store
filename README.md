@@ -13,6 +13,8 @@ gradle bootRun
 
 Database credentials are configured in `src/main/resources/application.properties`.
 
+The API exposes `POST /api/orders` to create an order from cart data.
+
 ## Frontend
 
 The frontend uses React with Vite.
