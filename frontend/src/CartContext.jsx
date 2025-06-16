@@ -11,7 +11,6 @@ export function CartProvider({ children }) {
   });
   const { showToast } = useToast();
   const { t } = useTranslation();
-
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(items));
   }, [items]);
@@ -36,7 +35,6 @@ export function CartProvider({ children }) {
   const clearCart = () => {
     setItems([]);
   };
-
   const getTotalPrice = () => {
     return items.reduce(
       (sum, it) => sum + Number(it.price || 0) * it.quantity,
