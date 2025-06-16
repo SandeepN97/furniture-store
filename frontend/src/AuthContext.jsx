@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const AuthContext = createContext(null);
 
-function parseJwt(token) {
+export function parseJwt(token) {
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload;
