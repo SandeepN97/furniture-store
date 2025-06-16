@@ -5,8 +5,6 @@ import java.util.UUID;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Map;
-
-
 import com.example.furniturestore.model.ApiKey;
 import com.example.furniturestore.repository.ApiKeyRepository;
 

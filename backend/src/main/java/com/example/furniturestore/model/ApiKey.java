@@ -14,7 +14,6 @@ public class ApiKey {
     private String prefix;
     private String keyHash;
 
-
     public ApiKey() {
     }
 

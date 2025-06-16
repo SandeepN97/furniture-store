@@ -31,3 +31,12 @@ The following concepts are not implemented but outline potential directions for 
 - **Geo‑Personalized Pricing** – automatically adjust pricing based on the user's location and demand.
 - **NFT Ownership Tags** – track unique furniture designs using NFTs for proof of ownership.
 
+## Testing Guidelines
+
+To keep the platform reliable and secure, follow these testing practices:
+
+- **Unit test** all services and helper classes.
+- **Integration test** each REST controller to verify request/response handling.
+- **E2E test** the critical flows from registration to checkout and order history.
+- **Mock APIs** in React tests so frontend tests do not rely on the backend.
+- **Secure** protected routes with token verification tests to ensure authorization works.
