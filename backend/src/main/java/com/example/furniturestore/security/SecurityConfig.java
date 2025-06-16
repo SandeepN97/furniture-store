@@ -21,8 +21,12 @@ public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
     public SecurityConfig(JwtFilter jwtFilter) {
+    private final ApiKeyFilter apiKeyFilter;
+
+    public SecurityConfig(JwtFilter jwtFilter, ApiKeyFilter apiKeyFilter) {
+
         this.jwtFilter = jwtFilter;
-    }
+        this.apiKeyFilter = apiKeyFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, ApiKeyFilter apiKeyFilter) throws Exception {

@@ -30,3 +30,4 @@ The following concepts are not implemented but outline potential directions for 
 - **AI Order Summary Bot** – send customers a friendly summary and return tips after each purchase.
 - **Geo‑Personalized Pricing** – automatically adjust pricing based on the user's location and demand.
 - **NFT Ownership Tags** – track unique furniture designs using NFTs for proof of ownership.
+

@@ -8,4 +8,5 @@ import com.example.furniturestore.model.ApiKey;
 
 public interface ApiKeyRepository extends JpaRepository<ApiKey, Long> {
     Optional<ApiKey> findByPrefix(String prefix);
+
 }
