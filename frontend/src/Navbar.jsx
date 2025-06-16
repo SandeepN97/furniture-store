@@ -5,10 +5,17 @@ import { useAuth } from './AuthContext';
 
 export default function Navbar() {
   const { getItemCount } = useCart();
-  const { token, logout } = useAuth();
+  const { token, role, logout } = useAuth();
+
   return (
     <nav>
       <Link to="/">Home</Link> |{' '}
+      {role === 'ADMIN' && (
+        <>
+          <Link to="/add-product">Add Product</Link> |{' '}
+          <Link to="/admin">Admin Panel</Link> |{' '}
+        </>
+      )}
       <Link to="/cart">Cart ({getItemCount()})</Link> |{' '}
       {token ? (
         <>

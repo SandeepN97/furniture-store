@@ -3,17 +3,32 @@ import axios from 'axios';
 
 const AuthContext = createContext(null);
 
+function parseJwt(token) {
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload;
+  } catch {
+    return {};
+  }
+}
+
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem('token'));
+  const [role, setRole] = useState(() => {
+    const t = localStorage.getItem('token');
+    return t ? parseJwt(t).role : null;
+  });
 
   const login = async (email, password) => {
     const res = await axios.post('/api/auth/login', { email, password });
     setToken(res.data.token);
+    setRole(parseJwt(res.data.token).role);
     localStorage.setItem('token', res.data.token);
   };
 
   const logout = () => {
     setToken(null);
+    setRole(null);
     localStorage.removeItem('token');
   };
 
@@ -22,7 +37,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, authHeader }}>
+    <AuthContext.Provider value={{ token, role, login, logout, authHeader }}>
       {children}
     </AuthContext.Provider>
   );
