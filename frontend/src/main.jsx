@@ -9,6 +9,7 @@ import OrderHistory from './OrderHistory';
 import Login from './Login';
 import AddProduct from './AddProduct';
 import AdminPanel from './AdminPanel';
+import AdminDashboard from './AdminDashboard';
 import CheckoutSuccess from './CheckoutSuccess';
 import Layout from './Layout';
 import { CartProvider } from './CartContext';
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="login" element={<Login />} />
               <Route path="add-product" element={<AddProduct />} />
               <Route path="admin" element={<AdminPanel />} />
+              <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="success" element={<CheckoutSuccess />} />
             </Route>
           </Routes>

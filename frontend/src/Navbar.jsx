@@ -20,6 +20,9 @@ export default function Navbar() {
           <Link to="/admin" className="hover:underline">
             Admin Panel
           </Link>
+          <Link to="/dashboard" className="hover:underline">
+            Dashboard
+          </Link>
         </>
       )}
       <Link to="/cart" className="hover:underline ml-auto">
