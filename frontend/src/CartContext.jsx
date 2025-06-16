@@ -31,7 +31,6 @@ export function CartProvider({ children }) {
   const clearCart = () => {
     setItems([]);
   };
-
   const getTotalPrice = () => {
     return items.reduce(
       (sum, it) => sum + Number(it.price || 0) * it.quantity,
