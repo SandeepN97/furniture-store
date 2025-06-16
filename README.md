@@ -46,6 +46,10 @@ UI components are styled with Tailwind CSS loaded from a CDN. Product cards disp
 
 The dev server proxies API requests to the backend.
 
+## Developer Ecosystem
+
+See `DEVELOPER_ECOSYSTEM.md` for details on the plugin architecture, API keys and OpenAPI documentation served from `/swagger-ui.html`.
+
 ## Development
 
 Run the backend and frontend tests with:

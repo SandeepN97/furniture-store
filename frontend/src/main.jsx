@@ -14,12 +14,14 @@ import Layout from './Layout';
 import { CartProvider } from './CartContext';
 import { AuthProvider } from './AuthContext';
 import { ToastProvider } from './ToastContext';
+import { ThemeProvider } from './ThemeContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <ToastProvider>
-    <AuthProvider>
-      <CartProvider>
-        <BrowserRouter>
+  <ThemeProvider>
+    <ToastProvider>
+      <AuthProvider>
+        <CartProvider>
+          <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<App />} />
@@ -33,8 +35,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="success" element={<CheckoutSuccess />} />
             </Route>
           </Routes>
-        </BrowserRouter>
-      </CartProvider>
-    </AuthProvider>
-  </ToastProvider>
+          </BrowserRouter>
+        </CartProvider>
+      </AuthProvider>
+    </ToastProvider>
+  </ThemeProvider>
 );
