@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useCart } from './CartContext';
 import Spinner from './Spinner';
+import SearchBar from './SearchBar';
+import { useToast } from './ToastContext';
 
 export default function App() {
   const [products, setProducts] = useState([]);
@@ -11,10 +13,16 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const { addItem } = useCart();
+  const { showToast } = useToast();
 
   const page = parseInt(searchParams.get('page')) || 0;
   const categoryId = searchParams.get('categoryId') || '';
-  const size = 5;
+  const search = searchParams.get('search') || '';
+  const minPrice = searchParams.get('minPrice') || '';
+  const maxPrice = searchParams.get('maxPrice') || '';
+  const inStock = searchParams.get('inStock') === 'true' ? true : null;
+  const sortBy = searchParams.get('sortBy') || '';
+  const size = 12;
 
   useEffect(() => {
     axios
@@ -25,9 +33,25 @@ export default function App() {
 
   useEffect(() => {
     setLoading(true);
+
+    let sortParams = {};
+    if (sortBy === 'price_asc') sortParams = { sort: 'price,asc' };
+    else if (sortBy === 'price_desc') sortParams = { sort: 'price,desc' };
+    else if (sortBy === 'rating') sortParams = { sort: 'averageRating,desc' };
+    else if (sortBy === 'newest') sortParams = { sort: 'id,desc' };
+
     axios
       .get('/api/products', {
-        params: { page, size, categoryId: categoryId || null },
+        params: {
+          page,
+          size,
+          categoryId: categoryId || null,
+          search: search || null,
+          minPrice: minPrice || null,
+          maxPrice: maxPrice || null,
+          inStock: inStock,
+          ...sortParams
+        },
       })
       .then((res) => {
         if (res.data.content) {
@@ -40,17 +64,58 @@ export default function App() {
       })
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [page, categoryId]);
+  }, [page, categoryId, search, minPrice, maxPrice, inStock, sortBy]);
 
-  const next = () => setSearchParams({ page: page + 1, categoryId });
-  const prev = () => setSearchParams({ page: Math.max(page - 1, 0), categoryId });
-  const changeCategory = (e) => setSearchParams({ page: 0, categoryId: e.target.value });
+  const handleSearch = (filters) => {
+    setSearchParams({
+      page: 0,
+      categoryId,
+      search: filters.search || '',
+      minPrice: filters.minPrice || '',
+      maxPrice: filters.maxPrice || '',
+      inStock: filters.inStock || '',
+      sortBy: filters.sortBy || ''
+    });
+  };
+
+  const next = () => setSearchParams({
+    page: page + 1,
+    categoryId,
+    search,
+    minPrice,
+    maxPrice,
+    inStock: inStock || '',
+    sortBy
+  });
+
+  const prev = () => setSearchParams({
+    page: Math.max(page - 1, 0),
+    categoryId,
+    search,
+    minPrice,
+    maxPrice,
+    inStock: inStock || '',
+    sortBy
+  });
+
+  const changeCategory = (e) => setSearchParams({
+    page: 0,
+    categoryId: e.target.value,
+    search,
+    minPrice,
+    maxPrice,
+    inStock: inStock || '',
+    sortBy
+  });
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Furniture Store</h1>
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-6 dark:text-white">Furniture Store</h1>
+
+      <SearchBar onSearch={handleSearch} />
+
       <select
-        className="border p-2 mb-4"
+        className="border p-2 mb-4 rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white"
         value={categoryId}
         onChange={changeCategory}
       >

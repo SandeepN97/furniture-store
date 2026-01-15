@@ -41,8 +41,41 @@ public class ProductController {
     @GetMapping
     public Page<Product> all(@RequestParam(required = false) Long categoryId,
                              @RequestParam(required = false) String name,
+                             @RequestParam(required = false) String search,
+                             @RequestParam(required = false) BigDecimal minPrice,
+                             @RequestParam(required = false) BigDecimal maxPrice,
+                             @RequestParam(required = false) Boolean inStock,
                              Pageable pageable) {
+        // Use advanced search if more filters are provided
+        if (search != null || minPrice != null || maxPrice != null || inStock != null) {
+            return repository.advancedSearch(categoryId, search, minPrice, maxPrice, inStock, pageable);
+        }
         return repository.search(categoryId, name, pageable);
+    }
+
+    @GetMapping("/featured")
+    public ResponseEntity<java.util.List<Product>> getFeatured() {
+        return ResponseEntity.ok(repository.findByIsFeaturedTrue());
+    }
+
+    @GetMapping("/{id}/related")
+    public ResponseEntity<java.util.List<Product>> getRelatedProducts(@PathVariable Long id) {
+        Product product = repository.findById(id).orElse(null);
+        if (product == null || product.getCategory() == null) {
+            return ResponseEntity.ok(java.util.Collections.emptyList());
+        }
+
+        org.springframework.data.domain.PageRequest pageRequest =
+            org.springframework.data.domain.PageRequest.of(0, 4);
+        java.util.List<Product> related = repository.findRelatedProducts(
+            product.getCategory().getId(), id, pageRequest);
+        return ResponseEntity.ok(related);
+    }
+
+    @GetMapping("/low-stock")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<java.util.List<Product>> getLowStockProducts() {
+        return ResponseEntity.ok(repository.findLowStockProducts());
     }
 
     @GetMapping("/{id}")
@@ -58,6 +91,15 @@ public class ProductController {
         public String description;
         public String imageUrl;
         public Long categoryId;
+        public Integer stockQuantity;
+        public Boolean isFeatured;
+        public String sku;
+        public Double weight;
+        public String dimensions;
+        public String material;
+        public String color;
+        public Integer lowStockThreshold;
+        public java.util.List<String> additionalImages;
     }
 
     @PostMapping
@@ -69,6 +111,26 @@ public class ProductController {
         }
         Product product = new Product(request.name, request.price, request.description,
                 request.imageUrl, category);
+
+        // Set additional fields
+        if (request.stockQuantity != null) {
+            product.setStockQuantity(request.stockQuantity);
+        }
+        if (request.isFeatured != null) {
+            product.setIsFeatured(request.isFeatured);
+        }
+        product.setSku(request.sku);
+        product.setWeight(request.weight);
+        product.setDimensions(request.dimensions);
+        product.setMaterial(request.material);
+        product.setColor(request.color);
+        if (request.lowStockThreshold != null) {
+            product.setLowStockThreshold(request.lowStockThreshold);
+        }
+        if (request.additionalImages != null) {
+            product.setAdditionalImages(request.additionalImages);
+        }
+
         Product saved = repository.save(product);
         return ResponseEntity.ok(saved);
     }
@@ -87,6 +149,26 @@ public class ProductController {
                 existing.setCategory(null);
             }
             existing.setImageUrl(request.imageUrl);
+
+            // Update additional fields
+            if (request.stockQuantity != null) {
+                existing.setStockQuantity(request.stockQuantity);
+            }
+            if (request.isFeatured != null) {
+                existing.setIsFeatured(request.isFeatured);
+            }
+            existing.setSku(request.sku);
+            existing.setWeight(request.weight);
+            existing.setDimensions(request.dimensions);
+            existing.setMaterial(request.material);
+            existing.setColor(request.color);
+            if (request.lowStockThreshold != null) {
+                existing.setLowStockThreshold(request.lowStockThreshold);
+            }
+            if (request.additionalImages != null) {
+                existing.setAdditionalImages(request.additionalImages);
+            }
+
             Product saved = repository.save(existing);
             return ResponseEntity.ok(saved);
         }).orElse(ResponseEntity.notFound().build());

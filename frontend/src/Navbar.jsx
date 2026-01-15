@@ -22,6 +22,25 @@ export default function Navbar() {
           <Link to="/admin" className="hover:underline">
             Admin Panel
           </Link>
+          <Link to="/admin/orders" className="hover:underline">
+            Manage Orders
+          </Link>
+          <Link to="/admin/analytics" className="hover:underline">
+            Analytics
+          </Link>
+        </>
+      )}
+      {token && (
+        <>
+          <Link to="/wishlist" className="hover:underline">
+            Wishlist
+          </Link>
+          <Link to="/orders" className="hover:underline">
+            Orders
+          </Link>
+          <Link to="/profile" className="hover:underline">
+            Profile
+          </Link>
         </>
       )}
       <Link to="/cart" className="hover:underline ml-auto">
@@ -31,14 +50,9 @@ export default function Navbar() {
         {theme === 'dark' ? 'Light' : 'Dark'} Mode
       </button>
       {token ? (
-        <>
-          <Link to="/orders" className="hover:underline">
-            Orders
-          </Link>
-          <button onClick={logout} className="hover:underline">
-            Logout
-          </button>
-        </>
+        <button onClick={logout} className="hover:underline">
+          Logout
+        </button>
       ) : (
         <Link to="/login" className="hover:underline">
           Login

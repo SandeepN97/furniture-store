@@ -11,6 +11,10 @@ import AddProduct from './AddProduct';
 import AdminPanel from './AdminPanel';
 import CheckoutSuccess from './CheckoutSuccess';
 import Layout from './Layout';
+import Wishlist from './Wishlist';
+import UserProfile from './UserProfile';
+import AdminOrders from './AdminOrders';
+import AdminAnalytics from './AdminAnalytics';
 import { CartProvider } from './CartContext';
 import { AuthProvider } from './AuthContext';
 import { ToastProvider } from './ToastContext';
@@ -30,8 +34,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="checkout" element={<Checkout />} />
               <Route path="orders" element={<OrderHistory />} />
               <Route path="login" element={<Login />} />
+              <Route path="wishlist" element={<Wishlist />} />
+              <Route path="profile" element={<UserProfile />} />
               <Route path="add-product" element={<AddProduct />} />
               <Route path="admin" element={<AdminPanel />} />
+              <Route path="admin/orders" element={<AdminOrders />} />
+              <Route path="admin/analytics" element={<AdminAnalytics />} />
               <Route path="success" element={<CheckoutSuccess />} />
             </Route>
           </Routes>
