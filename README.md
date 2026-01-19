@@ -1,141 +1,329 @@
-# 🛋️ Furniture Store
+# 📊 Samjhana Ventures Dashboard
 
 ## 📌 Project Overview
-A full-featured e-commerce platform for selling furniture online. Customers can browse products, add them to a cart, securely check out, and track their orders. Admins manage inventory and orders through protected dashboards. The project exposes a RESTful API backend and a modern React frontend built with Vite.
+A comprehensive **Multi-Business Management System** designed for managing multiple business ventures under one roof. Built with a focus on non-technical users, featuring large touch-friendly buttons, Nepali/English language support, and specialized modules for each business type.
+
+## 🏢 Business Units Supported
+
+### 1. **Samjhana Furniture**
+- Inventory tracking (items like sofas, glue, wood)
+- Daily sales recording
+- Barcode scanning with photo fallback
+- Stock level monitoring
+
+### 2. **Petrol Pump**
+- Fuel batch tracking (quantity and cost price)
+- Dynamic pricing system with real-time updates
+- Weighted Average Cost calculation for profit
+- Automatic revenue and profit calculation based on liters sold
+
+### 3. **EV Charging Station**
+- Daily meter reading logs (opening/closing readings)
+- Automatic units consumed calculation
+- Electricity bill tracking
+- Revenue vs. consumption comparison
+
+### 4. **House Rental**
+- Simple tenant tracking
+- Monthly rent collection status
+- Payment history
 
 ## 🛠️ Tech Stack
-- **Backend**: Java 17, Spring Boot, Spring Data JPA, Spring Security, JWT
-- **Database**: PostgreSQL
-- **Frontend**: React, Vite, React Router, Context API, Axios, Tailwind CSS
-- **Testing**: JUnit 5, Mockito, Spring Boot Test, Cypress, React Testing Library
-- **Deployment**: Docker, Render (backend), Vercel (frontend)
+
+### Backend
+- **Java 21** with **Spring Boot 3.2.1**
+- **Maven** for dependency management
+- **H2 Database** (file-based for easy backup)
+- **Spring Data JPA** for database operations
+- **Lombok** for reducing boilerplate
+- **OpenAPI/Swagger** for API documentation
+
+### Frontend
+- **React 18.2** with **Vite 4.5**
+- **Tailwind CSS** for touch-friendly UI
+- **i18next** for Nepali/English translations
+- **Recharts** for analytics visualization
+- **react-qr-barcode-scanner** for barcode scanning
+- **React Router** for navigation
+- **Axios** for API communication
 
 ## 🌟 Key Features
 
-### 👥 User Features
-- View all products with pagination and category filters
-- View detailed product pages with descriptions, images, and pricing
-- Add items to a cart via React Context API and update quantities
-- Review and modify cart contents
-- Secure checkout with user-provided information
-- JWT-based registration and login
-- Access order history after purchase
-- Order confirmation screen post‑checkout
+### 📱 Touch-Friendly Design
+- Large buttons (minimum 44px touch targets)
+- Bottom navigation like mobile apps
+- Minimal typing required
+- Clear visual feedback
 
-### 🧑‍💼 Admin Features
-- Admin login with role-based access
-- Create, edit, and delete products
-- Upload product images using multipart/form-data
-- Access protected dashboard routes
-- Track orders and update their status
+### 🌐 Multi-Language Support
+- Default: Nepali (नेपाली)
+- Toggle to English anytime
+- All UI labels translated
+- Easy language switching button
 
-## 🔐 Authentication & Authorization
-- JWT tokens issued on login or registration
-- Tokens stored in `localStorage` and sent via `Authorization` header
-- Spring Security protects API routes and enforces roles (`USER` vs `ADMIN`)
+### 💰 Financial Tracking
+- **Dad's Pocket**: Track owner withdrawals for personal use
+- **Loan Tracking**: Bank loans with automatic daily interest calculation
+- **Salary Management**: Employee tracking with advance payments
+- **Combined P&L Dashboard**: Visual profit/loss across all businesses
 
-## 🖼️ Image Upload Support
-Images are uploaded through `/api/products/upload-image` using multipart requests. Files are stored under an `uploads/` directory, and the resulting URL is saved in the product data for display on the frontend.
+### 📊 Dynamic Pricing (Petrol Pump)
+- Record fuel purchases with cost price
+- Update selling price via settings
+- Automatic profit calculation using weighted average cost
+- Price history tracking
 
-## 🧪 Testing
+### ⚡ Meter Reading Management (EV Charging)
+- Daily opening and closing readings
+- Automatic units consumed calculation
+- Revenue tracking per day
+- Monthly electricity bill comparison
 
-### 🧪 Backend Testing
-- Unit tests with JUnit and Mockito (e.g., `ProductServiceTest`)
-- Integration tests using Spring Boot Test and MockMvc
-- Data seeding verified through `CommandLineRunner` tests
+### 📸 Smart Data Entry
+- Barcode scanner for product identification
+- Photo capture for unrecognized barcodes
+- Images stored in `/uploads` folder for easy backup
 
-### 🧪 Frontend Testing
-- Components tested with React Testing Library
-- End-to-end flows tested with Cypress (add to cart, place order)
-- Run all tests with:
+## 📂 Project Structure
 
-```bash
-gradle -p backend test
-npm test --prefix frontend
+```
+samjhana-ventures-dashboard/
+├── backend/
+│   ├── src/main/java/com/samjhana/ventures/
+│   │   ├── model/              # Entity classes
+│   │   │   ├── BusinessUnit.java
+│   │   │   ├── Product.java
+│   │   │   ├── FuelPriceLog.java
+│   │   │   ├── Transaction.java
+│   │   │   ├── Loan.java
+│   │   │   ├── Employee.java
+│   │   │   ├── EVMeterReading.java
+│   │   │   └── Tenant.java
+│   │   ├── repository/         # JPA repositories
+│   │   ├── service/           # Business logic
+│   │   │   └── PetrolPriceService.java  # Dynamic pricing
+│   │   ├── controller/        # REST API endpoints
+│   │   │   ├── DashboardController.java
+│   │   │   ├── FuelPriceController.java
+│   │   │   ├── EVMeterReadingController.java
+│   │   │   └── BusinessUnitController.java
+│   │   └── config/            # Configuration
+│   ├── pom.xml                # Maven dependencies
+│   └── src/main/resources/
+│       └── application.properties
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── GlobalDashboard.jsx      # Combined P&L view
+│   │   │   ├── EVChargingComponent.jsx  # Meter readings
+│   │   │   ├── BottomNav.jsx           # Mobile-style navigation
+│   │   │   ├── BarcodeScanner.jsx      # Barcode scanning
+│   │   │   └── LanguageToggle.jsx      # Nepali/English switch
+│   │   ├── i18n/
+│   │   │   ├── config.js
+│   │   │   └── locales/
+│   │   │       ├── ne.json             # Nepali translations
+│   │   │       └── en.json             # English translations
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── package.json
+│   └── tailwind.config.js
+│
+└── uploads/                   # Image storage folder
 ```
 
-## 🧰 API Reference
-The most common endpoints are listed below:
+## 🚀 Getting Started
 
-| Method | Route | Description |
-| --- | --- | --- |
-| `GET` | `/api/products` | List products with optional filters |
-| `GET` | `/api/products/{id}` | Get product details |
-| `POST` | `/api/orders` | Place a new order |
-| `GET` | `/api/orders/user` | Get the current user's orders |
-| `POST` | `/api/auth/register` | Register a new user |
-| `POST` | `/api/auth/login` | Log in and receive a JWT |
+### Prerequisites
+- **Java 21** or higher
+- **Node.js 18** or higher
+- **Maven 3.8+**
 
-Interactive OpenAPI docs are available at `/swagger-ui.html`.
+### Backend Setup
 
-## 🚀 Deployment Instructions
+1. Navigate to backend directory:
+```bash
+cd backend
+```
 
-### 🔧 Backend
-1. Start PostgreSQL (locally or via Docker).
-2. Configure database credentials in `backend/src/main/resources/application.properties`.
+2. Build the project:
+```bash
+mvn clean install
+```
+
 3. Run the application:
-
 ```bash
-./gradlew -p backend bootRun
+mvn spring-boot:run
 ```
 
-### 💻 Frontend
-1. From the `frontend` folder install dependencies and start Vite:
+The backend will start on `http://localhost:8080/api`
 
+**H2 Console**: Access at `http://localhost:8080/api/h2-console`
+- JDBC URL: `jdbc:h2:file:./data/venturesdb`
+- Username: `admin`
+- Password: `admin123`
+
+### Frontend Setup
+
+1. Navigate to frontend directory:
+```bash
+cd frontend
+```
+
+2. Install dependencies:
 ```bash
 npm install
+```
+
+3. Start development server:
+```bash
 npm run dev
 ```
 
-2. Set `VITE_API_BASE_URL` if the backend runs on a different host/port.
+The frontend will start on `http://localhost:5173`
 
-### 📦 Docker
-A `docker-compose.yml` is provided to run PostgreSQL, the backend, and the Nginx‑served frontend:
+## 🧰 API Reference
 
+### Dashboard & Analytics
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/dashboard/profit-loss?period=month` | Get combined P&L for all businesses |
+| `GET` | `/api/dashboard/business/{id}/analytics` | Get specific business analytics |
+
+### Fuel Price Management
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/fuel-prices/current` | Get current prices for all fuel types |
+| `POST` | `/api/fuel-prices/update-price` | Update selling price |
+| `POST` | `/api/fuel-prices/record-purchase` | Record new fuel batch |
+| `POST` | `/api/fuel-prices/calculate-profit` | Calculate profit for a sale |
+
+### EV Meter Readings
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/ev-meter/all` | Get all meter readings |
+| `GET` | `/api/ev-meter/latest` | Get latest reading |
+| `POST` | `/api/ev-meter/add` | Add new meter reading |
+| `GET` | `/api/ev-meter/range?startDate&endDate` | Get readings by date range |
+
+### Business Units
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/businesses/active` | Get all active businesses |
+| `POST` | `/api/businesses/create` | Create new business unit |
+
+## 📊 Data Models
+
+### Key Entities
+
+**BusinessUnit**: Represents each business (Furniture, Petrol, EV, Rental)
+
+**FuelPriceLog**: Tracks fuel purchases and pricing with weighted average cost
+
+**EVMeterReading**: Daily electricity meter readings with auto-calculated units
+
+**Transaction**: Universal transaction tracking for all income/expenses
+
+**Loan**: Bank loan tracking with automatic daily interest accrual
+
+**Employee**: Employee management with salary and advance tracking
+
+**Tenant**: House rental tenant information and payment status
+
+## 🎨 UI Features
+
+### Bottom Navigation
+- 5 main sections: Dashboard, Furniture, Petrol, EV Charging, Rental
+- Icons with labels for easy recognition
+- Active state highlighting
+- Always visible at bottom of screen
+
+### Touch-Friendly Inputs
+- All inputs minimum 48px height
+- Large buttons for primary actions
+- Ample spacing between elements
+- Font size minimum 16px (prevents zoom on mobile)
+
+### Language Toggle
+- Fixed position button in top-right
+- Shows opposite language name (shows "English" when in Nepali)
+- Instant language switching
+- All labels update immediately
+
+## 📈 Business Logic Examples
+
+### Petrol Pump - Weighted Average Cost
+```java
+// When fuel is sold, profit is calculated as:
+// Profit = (Selling Price - Weighted Avg Cost) × Liters Sold
+
+BigDecimal sellingPrice = getCurrentSellingPrice(fuelType);
+BigDecimal averageCost = calculateWeightedAverageCost(fuelType);
+BigDecimal profit = sellingPrice.subtract(averageCost).multiply(litersSold);
+```
+
+### EV Charging - Auto Calculation
+```javascript
+// Units consumed = Closing Reading - Opening Reading
+const unitsConsumed = closingReading - openingReading;
+const totalRevenue = unitsConsumed * ratePerUnit;
+```
+
+## 🔄 Deployment
+
+### Backend Deployment
 ```bash
-docker-compose up --build
+mvn clean package
+java -jar target/ventures-dashboard-1.0.0.jar
 ```
 
-## 🔄 CI/CD
-GitHub Actions run tests on every push and build Docker images for deployment.
-
-## 📈 Analytics & Admin Dashboard
-Admins can view metrics such as total orders, revenue, and top-selling products. Charts are implemented with Chart.js on the dashboard.
-
-## 📦 Folder Structure Overview
-
-```text
-backend/
-├── controller/
-├── service/
-├── model/
-├── repository/
-└── application.properties
-
-frontend/
-├── src/components/
-├── src/pages/
-├── src/context/
-└── App.jsx
+### Frontend Deployment
+```bash
+npm run build
+# Deploy dist/ folder to any static hosting
 ```
 
-## 📸 Screenshots
-_Placeholders for screenshots: homepage, cart, and admin panel._
+### Database Backup
+H2 database is file-based at `./data/venturesdb.mv.db`
+Simply copy this file to backup all data.
+
+## 📱 Mobile-First Design Principles
+1. **Bottom Navigation**: Thumb-friendly access
+2. **Large Touch Targets**: Minimum 44×44px
+3. **Readable Fonts**: 16px+ to prevent zoom
+4. **Single Column Layouts**: Easy vertical scrolling
+5. **Clear Visual Hierarchy**: Important info stands out
+
+## 🌍 Internationalization (i18n)
+
+The app supports Nepali and English with complete translations for:
+- Navigation labels
+- Form fields
+- Button text
+- Error messages
+- Success notifications
+- Dashboard metrics
+
+## 💡 Future Enhancements
+- SMS notifications for low stock
+- WhatsApp integration for daily reports
+- PDF export of financial statements
+- Mobile app (React Native)
+- Voice input for sales entry
+- Integration with accounting software
+- Multi-user access with roles
+- Cloud backup automation
 
 ## 📄 License
 This project is released under the MIT License.
 
-## 💡 Future Enhancements
-- Wishlist functionality
-- Stripe/PayPal payment integration
-- Product reviews and ratings
-- Delivery tracking
-- Mobile app version with React Native
-
 ## 🤝 Contributing
-1. Fork the repo and create your feature branch.
-2. Commit your changes and open a pull request.
-3. Make sure tests pass before submitting.
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
 
-## 📫 Contact
-For questions or support, reach out via [GitHub](https://github.com/yourusername).
+## 📧 Contact
+For questions or support, please open an issue on GitHub.

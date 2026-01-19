@@ -1,0 +1,122 @@
+{
+  "app": {
+    "title": "समझना भेन्चर्स डेसबोर्ड",
+    "subtitle": "बहु-व्यवसाय व्यवस्थापन प्रणाली"
+  },
+  "nav": {
+    "dashboard": "डेसबोर्ड",
+    "furniture": "फर्निचर",
+    "petrol": "पेट्रोल पम्प",
+    "evCharging": "ईभी चार्जिङ",
+    "rental": "घर भाडा",
+    "settings": "सेटिङ्स"
+  },
+  "dashboard": {
+    "title": "संयुक्त डेसबोर्ड",
+    "totalProfit": "कुल नाफा",
+    "totalIncome": "कुल आम्दानी",
+    "totalExpense": "कुल खर्च",
+    "viewDetails": "विवरण हेर्नुहोस्",
+    "period": {
+      "week": "हप्ता",
+      "month": "महिना",
+      "year": "वर्ष"
+    }
+  },
+  "furniture": {
+    "title": "समझना फर्निचर",
+    "inventory": "सूची",
+    "sales": "बिक्री",
+    "addProduct": "उत्पादन थप्नुहोस्",
+    "scanBarcode": "बारकोड स्क्यान गर्नुहोस्",
+    "takePhoto": "फोटो लिनुहोस्",
+    "productName": "उत्पादनको नाम",
+    "quantity": "मात्रा",
+    "price": "मूल्य",
+    "unit": "एकाइ"
+  },
+  "petrol": {
+    "title": "पेट्रोल पम्प",
+    "fuelType": "इन्धनको प्रकार",
+    "petrol": "पेट्रोल",
+    "diesel": "डिजेल",
+    "kerosene": "मट्टीतेल",
+    "currentPrice": "हालको मूल्य",
+    "buyingPrice": "खरिद मूल्य",
+    "sellingPrice": "बिक्री मूल्य",
+    "updatePrice": "मूल्य अपडेट गर्नुहोस्",
+    "recordPurchase": "खरिद रेकर्ड गर्नुहोस्",
+    "litersSold": "बिक्री लिटर",
+    "profit": "नाफा",
+    "margin": "मार्जिन"
+  },
+  "evCharging": {
+    "title": "ईभी चार्जिङ स्टेशन",
+    "dailyLog": "दैनिक लग",
+    "openingReading": "खुल्ने मिटर रिडिङ",
+    "closingReading": "बन्द मिटर रिडिङ",
+    "unitsConsumed": "खपत एकाइहरू",
+    "ratePerUnit": "प्रति एकाइ दर",
+    "totalRevenue": "कुल राजस्व",
+    "addReading": "रिडिङ थप्नुहोस्",
+    "electricityBill": "बिजुली बिल",
+    "viewBills": "बिल हेर्नुहोस्"
+  },
+  "rental": {
+    "title": "घर भाडा",
+    "tenants": "भाडामा बस्नेहरू",
+    "tenantName": "भाडामा बस्नेको नाम",
+    "propertyAddress": "सम्पत्तिको ठेगाना",
+    "monthlyRent": "मासिक भाडा",
+    "addTenant": "भाडामा बस्ने थप्नुहोस्",
+    "rentCollected": "भाडा संकलन गरियो",
+    "pending": "बाँकी",
+    "paid": "भुक्तानी गरियो"
+  },
+  "common": {
+    "save": "सुरक्षित गर्नुहोस्",
+    "cancel": "रद्द गर्नुहोस्",
+    "edit": "सम्पादन गर्नुहोस्",
+    "delete": "मेटाउनुहोस्",
+    "add": "थप्नुहोस्",
+    "search": "खोज्नुहोस्",
+    "date": "मिति",
+    "amount": "रकम",
+    "description": "विवरण",
+    "submit": "पेश गर्नुहोस्",
+    "back": "फिर्ता",
+    "loading": "लोड हुँदैछ...",
+    "error": "त्रुटि",
+    "success": "सफल",
+    "or": "वा"
+  },
+  "owner": {
+    "dadsPocket": "बुवाको पकेट",
+    "withdrawal": "निकाल्नु",
+    "withdrawAmount": "रकम निकाल्नुहोस्",
+    "reason": "कारण",
+    "groceries": "किराना सामान",
+    "personal": "व्यक्तिगत",
+    "other": "अन्य"
+  },
+  "loan": {
+    "title": "ऋण",
+    "bankName": "बैंकको नाम",
+    "principal": "मूलधन",
+    "interestRate": "ब्याज दर",
+    "outstanding": "बाँकी रकम",
+    "addLoan": "ऋण थप्नुहोस्",
+    "viewLoans": "ऋणहरू हेर्नुहोस्",
+    "dailyInterest": "दैनिक ब्याज"
+  },
+  "employee": {
+    "title": "कर्मचारी",
+    "name": "नाम",
+    "salary": "तलब",
+    "advance": "अग्रिम",
+    "addEmployee": "कर्मचारी थप्नुहोस्",
+    "viewEmployees": "कर्मचारीहरू हेर्नुहोस्",
+    "payAdvance": "अग्रिम भुक्तानी",
+    "paySalary": "तलब भुक्तानी"
+  }
+}
