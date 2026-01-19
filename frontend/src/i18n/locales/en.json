@@ -1,0 +1,122 @@
+{
+  "app": {
+    "title": "Samjhana Ventures Dashboard",
+    "subtitle": "Multi-Business Management System"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "furniture": "Furniture",
+    "petrol": "Petrol Pump",
+    "evCharging": "EV Charging",
+    "rental": "House Rental",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "title": "Combined Dashboard",
+    "totalProfit": "Total Profit",
+    "totalIncome": "Total Income",
+    "totalExpense": "Total Expense",
+    "viewDetails": "View Details",
+    "period": {
+      "week": "Week",
+      "month": "Month",
+      "year": "Year"
+    }
+  },
+  "furniture": {
+    "title": "Samjhana Furniture",
+    "inventory": "Inventory",
+    "sales": "Sales",
+    "addProduct": "Add Product",
+    "scanBarcode": "Scan Barcode",
+    "takePhoto": "Take Photo",
+    "productName": "Product Name",
+    "quantity": "Quantity",
+    "price": "Price",
+    "unit": "Unit"
+  },
+  "petrol": {
+    "title": "Petrol Pump",
+    "fuelType": "Fuel Type",
+    "petrol": "Petrol",
+    "diesel": "Diesel",
+    "kerosene": "Kerosene",
+    "currentPrice": "Current Price",
+    "buyingPrice": "Buying Price",
+    "sellingPrice": "Selling Price",
+    "updatePrice": "Update Price",
+    "recordPurchase": "Record Purchase",
+    "litersSold": "Liters Sold",
+    "profit": "Profit",
+    "margin": "Margin"
+  },
+  "evCharging": {
+    "title": "EV Charging Station",
+    "dailyLog": "Daily Log",
+    "openingReading": "Opening Meter Reading",
+    "closingReading": "Closing Meter Reading",
+    "unitsConsumed": "Units Consumed",
+    "ratePerUnit": "Rate Per Unit",
+    "totalRevenue": "Total Revenue",
+    "addReading": "Add Reading",
+    "electricityBill": "Electricity Bill",
+    "viewBills": "View Bills"
+  },
+  "rental": {
+    "title": "House Rental",
+    "tenants": "Tenants",
+    "tenantName": "Tenant Name",
+    "propertyAddress": "Property Address",
+    "monthlyRent": "Monthly Rent",
+    "addTenant": "Add Tenant",
+    "rentCollected": "Rent Collected",
+    "pending": "Pending",
+    "paid": "Paid"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "search": "Search",
+    "date": "Date",
+    "amount": "Amount",
+    "description": "Description",
+    "submit": "Submit",
+    "back": "Back",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "or": "OR"
+  },
+  "owner": {
+    "dadsPocket": "Dad's Pocket",
+    "withdrawal": "Withdrawal",
+    "withdrawAmount": "Withdraw Amount",
+    "reason": "Reason",
+    "groceries": "Groceries",
+    "personal": "Personal",
+    "other": "Other"
+  },
+  "loan": {
+    "title": "Loans",
+    "bankName": "Bank Name",
+    "principal": "Principal",
+    "interestRate": "Interest Rate",
+    "outstanding": "Outstanding",
+    "addLoan": "Add Loan",
+    "viewLoans": "View Loans",
+    "dailyInterest": "Daily Interest"
+  },
+  "employee": {
+    "title": "Employees",
+    "name": "Name",
+    "salary": "Salary",
+    "advance": "Advance",
+    "addEmployee": "Add Employee",
+    "viewEmployees": "View Employees",
+    "payAdvance": "Pay Advance",
+    "paySalary": "Pay Salary"
+  }
+}
